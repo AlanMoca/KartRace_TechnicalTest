@@ -1,0 +1,13 @@
+¡Hola! A quién corresponda.
+ Te explicaré que es esto. Yo usualmente antes de empezar a programar hago una pequeña investigación
+para empaparme de ideas, de formas de poder hacer cosas esto porque hace mucho un profesor me dijo:
+ "No trates de reinventar la rueda".
+
+ Con esta idea en mente pues pronto comencé a investigar las diferentes formas que podría desarrollar
+la prueba técnica y me encontré con un pequeño asset que realmente hacía todo lo que el coche requería.
+ Al ser una prueba técnica decidí no hacer uso de aquel asset para que ustedes evaluen bien
+mis conocimientos y habilidades pero decidí tomarme un rato pequeño para dejarselos implementado
+en el prefab que ustedes me proporcionaron. Pueden ver su implementación en la escena
+"ExtraScene".
+
+ Esto no tiene más objetivo que explicarles el porque existe esta carpeta extra.
