@@ -7,33 +7,33 @@ namespace KartRace.Cars
         private const string HORIZONTAL = "Horizontal";
         private const string VERTICAL = "Vertical";
 
-        private float _horizontalInput;
-        private float _verticalInput;
-        private bool _isJumping;
-        private bool _isBoosting;
+        private float horizontalInput;
+        private float verticalInput;
+        private bool isJumping;
+        private bool isBoosting;
 
         public float GetHorizontalDirection()
         {
-            _horizontalInput = Input.GetAxisRaw( HORIZONTAL );
-            return _horizontalInput;
+            horizontalInput = Input.GetAxisRaw( HORIZONTAL );
+            return horizontalInput;
         }
 
         public float GetVerticalDirection()
         {
-            _verticalInput = Input.GetAxisRaw( VERTICAL );
-            return _verticalInput;
+            verticalInput = Input.GetAxisRaw( VERTICAL );
+            return verticalInput;
         }
 
         public bool GetIfJumping()
         {
-            _isJumping = Input.GetKey( KeyCode.Space );
-            return _isJumping;
+            isJumping = Input.GetKey( KeyCode.Space );
+            return isJumping;
         }
 
         public bool GetIfBoosting()
         {
-            _isBoosting = Input.GetKey( KeyCode.Mouse1 );
-            return _isBoosting;
+            isBoosting = Input.GetKey( KeyCode.Mouse1 );
+            return isBoosting;
         }
 
     }
