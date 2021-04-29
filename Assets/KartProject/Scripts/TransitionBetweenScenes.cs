@@ -30,28 +30,39 @@ public class TransitionBetweenScenes : MonoBehaviour
     private IEnumerator WaitToSetActive( string scene )
     {
         Scene lastScene = SceneManager.GetActiveScene();
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync( scene, LoadSceneMode.Additive );
+        Scene currentScene = SceneManager.GetSceneByName( scene );
 
-        asyncOperation.allowSceneActivation = false;
-        SceneReadyCallback( false );   //<= pararle el async y que haga de segundos su corutina
-        while ( asyncOperation.progress < 0.9f )
+        if( lastScene != currentScene )
         {
-            if ( asyncOperation.progress < 0.89f )
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync( scene, LoadSceneMode.Additive );
+
+            asyncOperation.allowSceneActivation = false;
+            SceneReadyCallback( false );   //<= pararle el async y que haga de segundos su corutina
+            while( asyncOperation.progress < 0.9f )
             {
-                Debug.Log($"Loading progress: "+ (asyncOperation.progress * 100).ToString("0.00"));
-                header.text = $"Loading progress: {( asyncOperation.progress * 100 ).ToString( "F0" )}%";
+                if( asyncOperation.progress < 0.89f )
+                {
+                    Debug.Log( $"Loading progress: " + ( asyncOperation.progress * 100 ).ToString( "0.00" ) );
+                    header.text = $"Loading progress: {( asyncOperation.progress * 100 ).ToString( "F0" )}%";
+                }
+                else if( asyncOperation.progress >= 0.89f )
+                {
+                    header.text = $"Loading your link. It's almost ready!";
+                }
             }
-            else if ( asyncOperation.progress >= 0.89f )
-            {
-                header.text = $"Loading your link. It's almost ready!";
-            }
+            yield return new WaitUntil( () => corutineHasEnded );
+            asyncOperation.allowSceneActivation = true;
+            yield return new WaitUntil( () => lastScene.isLoaded );
+            SceneManager.UnloadSceneAsync( lastScene );
+            SceneManager.SetActiveScene( SceneManager.GetSceneByName( scene ) );
         }
-        
-        yield return new WaitUntil( () => corutineHasEnded );
-        asyncOperation.allowSceneActivation = true;
-        yield return new WaitUntil( () => lastScene.isLoaded );
-        SceneManager.UnloadSceneAsync(lastScene);
-        SceneManager.SetActiveScene( SceneManager.GetSceneByName( scene ) );
+        else
+        {
+            SceneReadyCallback( false );
+            yield return new WaitUntil( () => corutineHasEnded );
+            SceneManager.LoadScene( scene, LoadSceneMode.Single );
+
+        }
     }
 
     private IEnumerator DoFade( bool fIn )
@@ -94,12 +105,18 @@ public class TransitionBetweenScenes : MonoBehaviour
     
     public void LoadScene( string scene )
     {
-        if ( !SceneManager.GetSceneByName( scene ).isLoaded )
+        if( !SceneManager.GetSceneByName( scene ).isLoaded )
         {
             StartCoroutine( WaitToSetActive( scene ) );
             return;
         }
-        SceneManager.LoadScene( scene, LoadSceneMode.Additive );
+        else
+        {
+            StartCoroutine( WaitToSetActive( scene ) );
+            //SceneManager.LoadScene( scene, LoadSceneMode.Single );
+            return;
+        }
+        //SceneManager.LoadScene( scene, LoadSceneMode.Additive );
     }
     
     public void SceneReadyCallback( bool ready )
