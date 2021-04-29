@@ -5,21 +5,21 @@ namespace KartRace.Cars
     public class CarInstaller : MonoBehaviour
     {
         [Header( "Car Elements" )]
-        [SerializeField] private CarController _car;
+        [SerializeField] private CarController car;
 
         [Header( "Joystick Elements" )]
-        [SerializeField] private bool _useJoystick;
+        [SerializeField] private bool useJoystick;
         //[SerializeField] private Joystick _joystick;
         //[SerializeField] private MOCA.Utils.ButtonPressed _isBreakingButton;
 
         private void Awake()
         {
-            _car.Configure( GetInput() );
+            car.Configure( GetInput() );
         }
 
         private IInput GetInput()
         {
-            if( _useJoystick )
+            if( useJoystick )
             {
                 //return new TouchInputAdapter( _joystick, _isBreakingButton );
             }

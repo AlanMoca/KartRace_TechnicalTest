@@ -26,6 +26,7 @@ public class TransitionBetweenScenes : MonoBehaviour
         //SceneReadyCallback( true );
     }
     
+    //Cambiar por async
     private IEnumerator WaitToSetActive( string scene )
     {
         Scene lastScene = SceneManager.GetActiveScene();
@@ -38,7 +39,7 @@ public class TransitionBetweenScenes : MonoBehaviour
             if ( asyncOperation.progress < 0.89f )
             {
                 Debug.Log($"Loading progress: "+ (asyncOperation.progress * 100).ToString("0.00"));
-                header.text = $"Loading progress: " + (asyncOperation.progress * 100).ToString("0.00");
+                header.text = $"Loading progress: {( asyncOperation.progress * 100 ).ToString( "F0" )}%";
             }
             else if ( asyncOperation.progress >= 0.89f )
             {
@@ -114,4 +115,10 @@ public class TransitionBetweenScenes : MonoBehaviour
         }
         fadeCR = StartCoroutine( DoFade( !ready ) );
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
 }
