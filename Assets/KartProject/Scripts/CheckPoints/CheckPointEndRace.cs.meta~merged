@@ -1,12 +1,12 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD:Assets/KartProject/Scripts/CheckPoints/CheckPointEndRace.cs.meta
 guid: 938a0018b1af6864ab4e9cde25857efe
 =======
-<<<<<<< HEAD:Assets/KartProject/Scripts/Events/CheckPointEndRaceEvent.cs.meta
-guid: 3b1164143685bee4b8ab9b51d005d33f
+guid: d6a61c8b903ba9a4aa893e675749a274
+>>>>>>> bfb516fd430968f96b030121b66a307e7afd521f:Assets/KartProject/Scripts/Car/LostControl.cs.meta
 =======
 guid: 938a0018b1af6864ab4e9cde25857efe
->>>>>>> bfb516fd430968f96b030121b66a307e7afd521f:Assets/KartProject/Scripts/CheckPoints/CheckPointEndRace.cs.meta
 >>>>>>> bfb516fd430968f96b030121b66a307e7afd521f
 MonoImporter:
   externalObjects: {}
