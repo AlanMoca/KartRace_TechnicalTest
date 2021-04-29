@@ -24,13 +24,14 @@ public class Player : MonoBehaviour
     private void Start()
     {
         numberOfRaces++;
+        dataSaver.SetInt( "NumberOfRaces", numberOfRaces );
     }
 
     private void OnDisable()
     {
         //PlayerPersistence.SaveData( this );
         //numberOfRaces++;
-        dataSaver.SetInt( "NumberOfRaces", numberOfRaces );
+        //dataSaver.SetInt( "NumberOfRaces", numberOfRaces );
     }
 
 }

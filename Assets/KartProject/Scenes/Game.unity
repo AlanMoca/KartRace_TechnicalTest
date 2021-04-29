@@ -1166,22 +1166,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6182327852661155845, guid: 230dd9257fca2c249b555f6edd3c8e14, type: 3}
   m_PrefabInstance: {fileID: 1930537800}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &494197935
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 494197934}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 1
 --- !u!114 &494197936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1191,9 +1175,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 494197934}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6a61c8b903ba9a4aa893e675749a274, type: 3}
+  m_Script: {fileID: 11500000, guid: 73c51a78ad6e7904c9f964846ef57b4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  carController: {fileID: 232905371}
+  timeLostControl: 0.75
 --- !u!65 &494197937
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3115,7 +3101,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1626358474}
   - component: {fileID: 1626358473}
-  - component: {fileID: 1626358475}
   m_Layer: 0
   m_Name: ======= INSTALLERS =======
   m_TagString: Untagged
@@ -3151,18 +3136,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1626358475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626358472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c76207b70c48184e8973a0bc14a9d8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1697252761
 GameObject:
   m_ObjectHideFlags: 0
