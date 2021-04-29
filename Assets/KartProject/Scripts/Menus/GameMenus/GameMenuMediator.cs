@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMenuMediator : MonoBehaviour
 {
     [SerializeField] private StartGameUI startGameUI;
     [SerializeField] private InGameUI inGameUI;
     [SerializeField] private EndGameUI endGameMenu;
+    [SerializeField] private TransitionBetweenScenes transitionBetweenScenes;
 
     private void Awake()
     {
@@ -41,9 +43,11 @@ public class GameMenuMediator : MonoBehaviour
 
     public void TryAgain()
     {
+        transitionBetweenScenes.LoadScene( "Game" );
     }
 
     public void MainMenu()
     {
+        transitionBetweenScenes.LoadScene( "Menu" );
     }
 }
