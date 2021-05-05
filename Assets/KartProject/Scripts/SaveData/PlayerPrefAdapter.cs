@@ -1,40 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using KartRace.Application;
 
-public class PlayerPrefAdapter : IDataSaver
+namespace KartRace.InterfaceAdapters
 {
-    public void SetInt( string key, int value )
+    public class PlayerPrefAdapter : IDataSaverPlayerPref
     {
-        PlayerPrefs.SetInt( key, value );
-        PlayerPrefs.Save();
-    }
+        public void SetInt( string key, int value )
+        {
+            PlayerPrefs.SetInt( key, value );
+            PlayerPrefs.Save();
+        }
 
-    public int GetInt( string key, int defaultValue = default )
-    {
-        return PlayerPrefs.GetInt( key, defaultValue );
-    }
+        public int GetInt( string key, int defaultValue = default )
+        {
+            return PlayerPrefs.GetInt( key, defaultValue );
+        }
 
-    public void SetFloat( string key, float value )
-    {
-        PlayerPrefs.SetFloat( key, value );
-        PlayerPrefs.Save();
-    }
+        public void SetFloat( string key, float value )
+        {
+            PlayerPrefs.SetFloat( key, value );
+            PlayerPrefs.Save();
+        }
 
-    public float GetFloat( string key, float defaultValue = default )
-    {
-        return PlayerPrefs.GetFloat( key, defaultValue );
-    }
+        public float GetFloat( string key, float defaultValue = default )
+        {
+            return PlayerPrefs.GetFloat( key, defaultValue );
+        }
 
-    public void SetString( string key, string value )
-    {
-        PlayerPrefs.SetString( key, value );
-        PlayerPrefs.Save();
-    }
+        public void SetString( string key, string value )
+        {
+            PlayerPrefs.SetString( key, value );
+            PlayerPrefs.Save();
+        }
 
-    public string GetString( string key, string defaultValue = default )
-    {
-        return PlayerPrefs.GetString( key, defaultValue );
+        public string GetString( string key, string defaultValue = default )
+        {
+            return PlayerPrefs.GetString( key, defaultValue );
+        }
     }
-
 }

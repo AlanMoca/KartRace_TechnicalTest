@@ -1,14 +1,21 @@
-public class PlayerData
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace KartRace.Players//.Entity
 {
-    public int numberOfRaces;
-    public int racesWon;
-    public float bestTime;
-
-    public PlayerData( Player player)
+    [System.Serializable]
+    public class PlayerData
     {
-        //numberOfRaces = player.numberOfRaces;
-        //racesWon = player.racesWon;
-        //bestTime = player.bestTime;
-    }
+        //public int id;
+        //public string name;
+        //public string nickName;
+        //public string mail;
+        //public int level;
 
+        public int numberOfRaces;
+        public int racesWon;
+        public float bestTime;
+
+    }
 }

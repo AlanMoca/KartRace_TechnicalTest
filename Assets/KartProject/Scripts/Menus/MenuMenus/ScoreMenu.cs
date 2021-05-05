@@ -28,11 +28,19 @@ public class ScoreMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        var dataSaver = ServiceLocator.Instance.GetService<IDataSaver>();
+        var dataSaver = KartRace.Players.ServiceLocator.Instance.GetService<KartRace.Matchs.IMatchDataSaver>();
 
-        numberOfRaces = dataSaver.GetInt( "NumberOfRaces" );
-        racesWon = dataSaver.GetInt( "RacesWon" );
-        bestTime = dataSaver.GetFloat( "BestTime" );
+        var matchData = dataSaver.LoadMatchData();
+
+        numberOfRaces = matchData.numberOfRaces;
+        racesWon = matchData.racesWon;
+        bestTime = matchData.bestTime;
+
+        //var dataSaver = ServiceLocator.Instance.GetService<IDataSaver>();
+
+        //numberOfRaces = dataSaver.GetInt( "NumberOfRaces" );
+        //racesWon = dataSaver.GetInt( "RacesWon" );
+        //bestTime = dataSaver.GetFloat( "BestTime" );
     }
 
     public void Show()

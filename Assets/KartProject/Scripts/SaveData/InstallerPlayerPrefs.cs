@@ -1,10 +1,16 @@
 using UnityEngine;
+using KartRace.Application;
 
-public class InstallerPlayerPrefs : MonoBehaviour
+namespace KartRace.InterfaceAdapters
 {
-    private void Awake()
+    public class InstallerPlayerPrefs : MonoBehaviour
     {
-        var playerPrefsAdapter = new PlayerPrefAdapter();
-        ServiceLocator.Instance.RegisterService<IDataSaver>( playerPrefsAdapter );
+        private void Awake()
+        {
+            var playerPrefsAdapter = new PlayerPrefAdapter();
+            KartRace.Players.ServiceLocator.Instance.RegisterService<IDataSaverPlayerPref>( playerPrefsAdapter );
+            var matchDataSaverPlayerPrefs = new KartRace.Matchs.MatchDataSaverPlayerPrefs();
+            KartRace.Players.ServiceLocator.Instance.RegisterService<KartRace.Matchs.IMatchDataSaver>( matchDataSaverPlayerPrefs );
+        }
     }
 }

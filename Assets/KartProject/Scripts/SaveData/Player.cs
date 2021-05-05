@@ -2,36 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+namespace KartRace.Players//.Entity
 {
-    private IDataSaver dataSaver;
-
-    private int numberOfRaces;
-    private int racesWon;
-    private float bestTime;
-
-    public PlayerData PlayerData { get; private set; }
-
-    private void OnEnable()
+    public class Player : MonoBehaviour
     {
-        //PlayerData = PlayerPersistence.LoadData();
+        public PlayerData PlayerData { get; private set; }
 
-        dataSaver = ServiceLocator.Instance.GetService<IDataSaver>();
+        private void OnEnable()
+        {
+            //PlayerData = PlayerPersistence.LoadData();
+            var playerDataSaver = ServiceLocator.Instance.GetService<IPlayerDataSaver>();
+            PlayerData = playerDataSaver.LoadPlayerData();
+        }
 
-        numberOfRaces = dataSaver.GetInt( "NumberOfRaces" );
+        private void OnDisable()
+        {
+            //Guardarle los nuevos valores y pasarselo
+            //PlayerPersistence.SaveData( PlayerData );
+        }
+
+        private void Update()
+        {
+            //UpdateCashUI();
+        }
+
     }
-
-    private void Start()
-    {
-        numberOfRaces++;
-        dataSaver.SetInt( "NumberOfRaces", numberOfRaces );
-    }
-
-    private void OnDisable()
-    {
-        //PlayerPersistence.SaveData( this );
-        //numberOfRaces++;
-        //dataSaver.SetInt( "NumberOfRaces", numberOfRaces );
-    }
-
 }
+
+//Consumidor
+
+

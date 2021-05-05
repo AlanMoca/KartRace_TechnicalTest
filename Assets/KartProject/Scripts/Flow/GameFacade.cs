@@ -9,6 +9,8 @@ public class GameFacade : MonoBehaviour
 
     [Header( "InGame Class Instances" )]
     [SerializeField] private SimpleTimerUpdate inGameTimer;
+    [Header( "InGame Class Instances" )]
+    [SerializeField] private KartRace.Matchs.MatchDetails matchDetails;
 
     [Header( "General Class Instances" )]
     [SerializeField] private KartRace.Cars.CarController carController;
@@ -18,7 +20,7 @@ public class GameFacade : MonoBehaviour
     {
         carController.enabled = false;
         gameMenuMediator.StartGame();
-
+        matchDetails.AddNumberOfRaces();
         startGameTimer.StarTimer();
     }
 
@@ -31,13 +33,33 @@ public class GameFacade : MonoBehaviour
         inGameTimer.StarTimer();
     }
 
-    public void EndGame(bool playerWon)
+    //public void EndGame(bool playerWon)
+    //{
+    //    carController.enabled = false;
+    //    inGameTimer.StopTimer();
+    //    var currentFinalTime = inGameTimer.GetCurrentTime();
+
+    //    gameMenuMediator.EndGame( playerWon, currentFinalTime );
+    //}
+
+    public void EndGame( bool playerWon )
     {
         carController.enabled = false;
-        inGameTimer.StopTimer();
-        var currentTime = inGameTimer.GetCurrentTime();
 
-        gameMenuMediator.EndGame( playerWon, currentTime );
+        inGameTimer.StopTimer();
+        var currentFinalTime = inGameTimer.GetCurrentTime();
+        var lastBestTime = matchDetails.GetBestTime();
+
+        if( playerWon )
+        {
+            matchDetails.AddRacesWon();
+            matchDetails.UpdateBestTime( currentFinalTime );
+        }
+
+        gameMenuMediator.EndGame( playerWon, lastBestTime, currentFinalTime );
+
+        //SalvarDatos pero por lo que entiendo ya todo se actualizo en matchData por lo que al hacer disable se guarda automáticamente
+
     }
 
 }

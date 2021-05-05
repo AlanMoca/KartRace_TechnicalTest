@@ -2,33 +2,37 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.Assertions;
 
-public class ServiceLocator
+namespace KartRace.Players
 {
-    public static ServiceLocator Instance => instance ?? ( instance = new ServiceLocator() );
-    private static ServiceLocator instance;
-
-    public readonly Dictionary<Type, object> services;
-
-    public ServiceLocator()
+    public class ServiceLocator
     {
-        services = new Dictionary<Type, object>();
-    }
+        public static ServiceLocator Instance => instance ?? ( instance = new ServiceLocator() );
+        private static ServiceLocator instance;
 
-    public void RegisterService<T>( T service )
-    {
-        var type = typeof( T );
-        Assert.IsFalse( services.ContainsKey( type ), $"Service {type} already registered" );
-        services.Add( type, service );
-    }
+        public readonly Dictionary<Type, object> services;
 
-    public T GetService<T>()
-    {
-        var type = typeof( T );
-        if( !services.TryGetValue( type, out var service ) )
+        public ServiceLocator()
         {
-            throw new Exception( $"Service {type} not found" );
+            services = new Dictionary<Type, object>();
         }
-        return (T)service;
-    }
 
+        public void RegisterService<T>( T service )
+        {
+            var type = typeof( T );
+            Assert.IsFalse( services.ContainsKey( type ), $"Service {type} already registered" );
+            services.Add( type, service );
+        }
+
+        public T GetService<T>()
+        {
+            var type = typeof( T );
+            if( !services.TryGetValue( type, out var service ) )
+            {
+                throw new Exception( $"Service {type} not found" );
+            }
+            return (T)service;
+        }
+
+    }
 }
+

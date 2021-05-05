@@ -35,11 +35,17 @@ public class GameMenuMediator : MonoBehaviour
         inGameUI.Show();
     }
 
-    public void EndGame( bool playerWon, float currentTime )
+    public void EndGame( bool playerWon, float lastBestTime, float currentFinalTime )
     {
         inGameUI.Hide();
-        endGameMenu.Show( playerWon, currentTime );
+        endGameMenu.Show( playerWon, lastBestTime, currentFinalTime );
     }
+
+    //public void EndGame( bool playerWon, float currentTime )
+    //{
+    //    inGameUI.Hide();
+    //    endGameMenu.Show( playerWon, currentTime );
+    //}
 
     public void TryAgain()
     {
