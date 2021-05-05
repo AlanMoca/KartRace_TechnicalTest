@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//namespace KartRace.Application.Core
 public class GameFacade : MonoBehaviour
 {
     [Header( "Start Class Instances" )]
@@ -10,11 +11,11 @@ public class GameFacade : MonoBehaviour
     [Header( "InGame Class Instances" )]
     [SerializeField] private SimpleTimerUpdate inGameTimer;
     [Header( "InGame Class Instances" )]
-    [SerializeField] private KartRace.Matchs.MatchDetails matchDetails;
+    [SerializeField] private KartRace.Matchs.Domain.UseCase.MatchDetails matchDetails;
 
     [Header( "General Class Instances" )]
     [SerializeField] private KartRace.Cars.CarController carController;
-    [SerializeField] private GameMenuMediator gameMenuMediator;
+    [SerializeField] private KartRace.Views.GameMenu.GameMenuMediator gameMenuMediator;
 
     public void StartGame()
     {
@@ -32,15 +33,6 @@ public class GameFacade : MonoBehaviour
 
         inGameTimer.StarTimer();
     }
-
-    //public void EndGame(bool playerWon)
-    //{
-    //    carController.enabled = false;
-    //    inGameTimer.StopTimer();
-    //    var currentFinalTime = inGameTimer.GetCurrentTime();
-
-    //    gameMenuMediator.EndGame( playerWon, currentFinalTime );
-    //}
 
     public void EndGame( bool playerWon )
     {
