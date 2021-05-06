@@ -7,6 +7,13 @@ namespace KartRace.Matchs.Domain.Entity
         public int racesWon;
         public float bestTime;
 
+        public MatchData()
+        {
+            numberOfRaces = 0;
+            racesWon = 0;
+            bestTime = 0f;
+        }
+
         public void AddNumberOfRaces()
         {
             numberOfRaces++;

@@ -4,7 +4,7 @@ using KartRace.InterfaceAdapters;
 
 namespace KartRace.Installers
 {
-    public class InstallerPlayerPrefs : MonoBehaviour
+    public class PlayerPrefsInstaller : MonoBehaviour
     {
         private void Awake()
         {

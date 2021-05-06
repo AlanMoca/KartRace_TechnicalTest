@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/KartProject/Scenes/Game.unity
     guid: fd0927e6f6b387247a7c1d5ff6010985
+  - enabled: 1
+    path: Assets/KartProject/Scenes/Game_Respaldo.unity
+    guid: c0ee29ee67668a84dac5269f9dc791ea
+  - enabled: 1
+    path: Assets/KartProject/Scenes/Menu_Respaldo.unity
+    guid: 26d9b8c73ed9dfa4a8a19b6f1bceceaf
   m_configObjects: {}

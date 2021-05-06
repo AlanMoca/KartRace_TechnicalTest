@@ -19,8 +19,12 @@ namespace KartRace.Application
         public void RegisterService<T>( T service )
         {
             var type = typeof( T );
+            if( !services.ContainsKey( type ) )
+            {
+                services.Add( type, service );
+                return;
+            }
             Assert.IsFalse( services.ContainsKey( type ), $"Service {type} already registered" );
-            services.Add( type, service );
         }
 
         public T GetService<T>()

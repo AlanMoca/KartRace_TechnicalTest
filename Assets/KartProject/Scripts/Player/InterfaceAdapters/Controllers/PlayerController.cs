@@ -3,12 +3,12 @@ using UnityEngine;
 //REVISAR! Es realmente necesario?
 //Creo que debería cambiar el nombre de la clase porque realmente sólo se encarga de manejar los datos... La clase Match por sí sola podría hacerlo sólo sería que al crearse
 //invocara los métodos de GetService... No necesitaría esta...
-namespace KartRace.Players.Domain.UseCase
+namespace KartRace.Players.InterfaceAdapters.Controller
 {
-    public class Player : MonoBehaviour
+    public class PlayerController : MonoBehaviour
     {
-        private Data.IPlayerDataSaver matchDataSaver;
-        private Entity.PlayerData matchData;
+        private Domain.Data.IPlayerDataSaver matchDataSaver;
+        private Domain.Entity.PlayerData matchData;
 
         private void OnEnable()
         {
