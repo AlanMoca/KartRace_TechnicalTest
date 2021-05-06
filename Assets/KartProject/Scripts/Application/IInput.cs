@@ -1,4 +1,4 @@
-namespace KartRace.Cars
+namespace KartRace.Application
 {
     public interface IInput
     {

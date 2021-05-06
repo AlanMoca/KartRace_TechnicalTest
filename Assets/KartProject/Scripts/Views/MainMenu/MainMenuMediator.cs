@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace KartRace.Views.MainMenu
@@ -8,6 +6,7 @@ namespace KartRace.Views.MainMenu
     {
         [SerializeField] private ScoreMenu scoreMenu;
         [SerializeField] private GameObject mainMenu;
+        [SerializeField] private Matchs.InterfaceAdapters.Controller.MatchController matchController;
 
         private void Awake()
         {
@@ -21,7 +20,7 @@ namespace KartRace.Views.MainMenu
 
         public void ScoreMenu()
         {
-            scoreMenu.Show();
+            scoreMenu.Show( matchController );
             mainMenu.SetActive( false );
         }
 

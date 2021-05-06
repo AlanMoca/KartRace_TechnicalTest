@@ -14,10 +14,6 @@ namespace KartRace.Views.MainMenu
 
         private MainMenuMediator mediator;
 
-        private int numberOfRaces;
-        private int racesWon;
-        private float bestTime;
-
         public void Configure( MainMenuMediator menuMediator )
         {
             mediator = menuMediator;
@@ -28,21 +24,14 @@ namespace KartRace.Views.MainMenu
             returnButton.onClick.AddListener( () => mediator.MainMenu() );
         }
 
-        private void OnEnable()
-        {
-            //Intentar con un MatchData sin usar un MatchDetail
-            var dataSaver = KartRace.Application.ServiceLocator.Instance.GetService<KartRace.Matchs.Domain.Data.IMatchDataSaver>();
-
-            var matchData = dataSaver.LoadMatchData();
-
-            numberOfRaces = matchData.numberOfRaces;
-            racesWon = matchData.racesWon;
-            bestTime = matchData.bestTime;
-        }
-
-        public void Show()
+        public void Show( Matchs.InterfaceAdapters.Controller.MatchController matchController )
         {
             scoreMenu.SetActive( true );
+
+            var bestTime = matchController.GetBestTime();
+            var racesWon = matchController.GetRacesWon();
+            var numberOfRaces = matchController.GetNumberOfRaces();
+
             bestTimeText.text = $"Best Time: {bestTime.ToString( "F" )}";
             racesWonText.text = $"Races Won: {racesWon.ToString( "F0" )}";
             numberOfRacesText.text = $"Number of Races: {numberOfRaces.ToString( "F0" )}";

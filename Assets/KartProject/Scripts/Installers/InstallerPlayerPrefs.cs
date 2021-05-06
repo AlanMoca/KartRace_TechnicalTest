@@ -8,10 +8,21 @@ namespace KartRace.Installers
     {
         private void Awake()
         {
-            var playerPrefsAdapter = new PlayerPrefAdapter();
-            Application.ServiceLocator.Instance.RegisterService<IDataSaverPlayerPref>( playerPrefsAdapter );
-            var matchDataSaverPlayerPrefs = new KartRace.Matchs.Domain.UseCase.MatchDataSaverPlayerPrefs();
-            Application.ServiceLocator.Instance.RegisterService<KartRace.Matchs.Domain.Data.IMatchDataSaver>( matchDataSaverPlayerPrefs );
+            PlayerPrefAdapterRegisterService();
+            MatchDataSaverAsPlayerPrefRegisterService();
         }
+
+        public void PlayerPrefAdapterRegisterService()
+        {
+            var playerPrefsAdapter = new PlayerPrefAdapter();
+            ServiceLocator.Instance.RegisterService<IDataSaverPlayerPref>( playerPrefsAdapter );
+        }
+
+        public void MatchDataSaverAsPlayerPrefRegisterService()
+        {
+            var matchDataSaverPlayerPrefs = new Matchs.Domain.UseCase.MatchDataSaverPlayerPrefs();
+            ServiceLocator.Instance.RegisterService<Matchs.Domain.Data.IMatchDataSaver>( matchDataSaverPlayerPrefs );
+        }
+
     }
 }

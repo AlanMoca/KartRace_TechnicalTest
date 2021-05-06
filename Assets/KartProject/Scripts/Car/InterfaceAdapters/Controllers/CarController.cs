@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.Events;
+using KartRace.Application;
 
-namespace KartRace.Cars
+//Aquí posiblemente se puede ver como está mal desarrollado porque al ser un controller no debería de tener lógica, falta crear la entidad y que esta maneje la lógica y los casos de uso pedidos.
+namespace KartRace.Cars.InterfaceAdapters.Controller
 {
     public class CarController : MonoBehaviour
     {
@@ -34,9 +36,6 @@ namespace KartRace.Cars
         private bool isCarGrounded;
 
         private IInput _input;
-
-        
-        
 
         public void Configure( IInput input )
         {

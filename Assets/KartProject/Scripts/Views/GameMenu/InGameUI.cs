@@ -6,7 +6,7 @@ namespace KartRace.Views.GameMenu
     public class InGameUI : MonoBehaviour
     {
         [Header( "Class Instances" )]
-        [SerializeField] private SimpleTimerUpdate systemTime;
+        [SerializeField] private Timers.Domain.UseCase.SimpleTimerUpdate systemTime;
 
         [Header( "UI Elements" )]
         [SerializeField] private GameObject startGameCanvas;

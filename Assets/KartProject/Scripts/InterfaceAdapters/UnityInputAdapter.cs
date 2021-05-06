@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace KartRace.Cars
+namespace KartRace.InterfaceAdapters
 {
-    public class UnityInputAdapter : IInput
+    public class UnityInputAdapter : Application.IInput
     {
         private const string HORIZONTAL = "Horizontal";
         private const string VERTICAL = "Vertical";

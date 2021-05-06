@@ -1,11 +1,11 @@
 using UnityEngine;
 
-namespace KartRace.Cars
+namespace KartRace.Installers
 {
     public class CarInstaller : MonoBehaviour
     {
         [Header( "Car Elements" )]
-        [SerializeField] private CarController car;
+        [SerializeField] private Cars.InterfaceAdapters.Controller.CarController car;
 
         [Header( "Joystick Elements" )]
         [SerializeField] private bool useJoystick;
@@ -17,7 +17,7 @@ namespace KartRace.Cars
             car.Configure( GetInput() );
         }
 
-        private IInput GetInput()
+        private Application.IInput GetInput()
         {
             if( useJoystick )
             {
@@ -26,7 +26,7 @@ namespace KartRace.Cars
             //Destroy( _joystick.gameObject );
             //Destroy( _isBreakingButton.gameObject );
 
-            return new UnityInputAdapter();
+            return new InterfaceAdapters.UnityInputAdapter();
         }
 
     }
