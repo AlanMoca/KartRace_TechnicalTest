@@ -613,7 +613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startGameTimer: {fileID: 308291604}
   inGameTimer: {fileID: 2024670117}
-  matchController: {fileID: 177660943}
+  matchController: {fileID: 0}
   carController: {fileID: 232905371}
   gameMenuMediator: {fileID: 1025799446}
 --- !u!4 &177660942
@@ -1824,7 +1824,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815864925}
-  m_LocalRotation: {x: 0.13449773, y: -0.000000019062524, z: 0.0000000025873759, w: 0.9909139}
+  m_LocalRotation: {x: 0.13449773, y: 0.000000019062522, z: -0.0000000025873756, w: 0.9909139}
   m_LocalPosition: {x: 15, y: 3.5, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2510,11 +2510,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6691645748356329553, guid: f01351f2664b6584c8126d50a552c01f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000019062524
+      value: 0.000000019062522
       objectReference: {fileID: 0}
     - target: {fileID: 6691645748356329553, guid: f01351f2664b6584c8126d50a552c01f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000025873759
+      value: -0.0000000025873756
       objectReference: {fileID: 0}
     - target: {fileID: 6691645748356329553, guid: f01351f2664b6584c8126d50a552c01f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

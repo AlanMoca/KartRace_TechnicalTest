@@ -1,5 +1,3 @@
-using KartRace.Matchs.Domain.Entity;
-
 namespace KartRace.Application.Entity
 {
     public interface IDataSaver

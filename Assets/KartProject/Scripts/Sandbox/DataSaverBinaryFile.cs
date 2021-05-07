@@ -24,10 +24,6 @@ namespace KartRace.Application.UseCase
             if( !File.Exists( filePath ) )
             {
                 stream = OpenFile( fileName );
-
-                //T objectDataTemp = new (T)Activator.CreateInstance( typeof(T), new object[] );
-                //T objectDataTemp = (T)Activator.CreateInstance( typeof( T ), new object[] { } );
-                //T objectDataTemp = (T)Activator.CreateInstance( typeof( T ) );
                 T objectDataTemp = Activator.CreateInstance<T>();
                 formatter.Serialize( stream, objectDataTemp );
                 stream.Close();
@@ -46,10 +42,6 @@ namespace KartRace.Application.UseCase
             if( !File.Exists( filePath ) )
             {
                 stream = OpenFile( fileName );
-
-                //T objectDataTemp = new (T)Activator.CreateInstance( typeof(T), new object[] );
-                //T objectDataTemp = (T)Activator.CreateInstance( typeof( T ), new object[] { } );
-                //T objectDataTemp = (T)Activator.CreateInstance( typeof( T ) );
                 T objectDataTemp = Activator.CreateInstance<T>();
                 formatter.Serialize( stream, objectDataTemp );
                 stream.Close();

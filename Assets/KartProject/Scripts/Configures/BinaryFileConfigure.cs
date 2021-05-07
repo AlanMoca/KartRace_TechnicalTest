@@ -3,6 +3,7 @@ using KartRace.Application;
 
 namespace KartRace.Installers
 {
+    [RequireComponent( typeof( Configures.MatchConfigureGenericBinaryFormatter ) )]
     public class BinaryFileConfigure : MonoBehaviour
     {
         private Application.UseCase.DataSaverBinaryFile dataSaverBinaryFile;
@@ -11,6 +12,7 @@ namespace KartRace.Installers
         {
             DataSaverAsBinaryFileRegisterService();
         }
+
         public void DataSaverAsBinaryFileRegisterService()
         {
             dataSaverBinaryFile = new Application.UseCase.DataSaverBinaryFile();
