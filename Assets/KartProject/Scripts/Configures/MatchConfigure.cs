@@ -19,17 +19,49 @@ namespace KartRace.Configures
             matchController.Configure( matchDataSaver, matchData );
         }
 
-        private IMatchDataSaver GetMatchDataSaverTypeService()
+        private Application.Entity.IDataSaver GetMatchDataSaverTypeService()
         {
-            IMatchDataSaver matchDataSaver = Application.ServiceLocator.Instance.GetService<IMatchDataSaver>();
+            Application.Entity.IDataSaver matchDataSaver = Application.ServiceLocator.Instance.GetService<Application.Entity.IDataSaver>();
             return matchDataSaver;
         }
 
-        private MatchData GetMatchData( IMatchDataSaver matchDataSaver )
+        private MatchData GetMatchData( Application.Entity.IDataSaver matchDataSaver )
         {
-            MatchData matchData = matchDataSaver.LoadMatchData();
+            MatchData matchData = matchDataSaver.LoadData<MatchData>("matchData");
             return matchData;
         }
 
     }
 }
+
+//namespace KartRace.Configures
+//{
+//    public class MatchConfigure : MonoBehaviour
+//    {
+//        [Header( "MatchDetail Instance" )]
+//        [SerializeField] private MatchController matchController;
+
+//        //When it is configuration, the star is used so that it gives time to the installers to create the instances
+//        private void Start()
+//        {
+//            var matchDataSaver = GetMatchDataSaverTypeService();
+//            var matchData = GetMatchData( matchDataSaver );
+
+//            matchController.Configure( matchDataSaver, matchData );
+//        }
+
+//        private IMatchDataSaver GetMatchDataSaverTypeService()
+//        {
+//            IMatchDataSaver matchDataSaver = Application.ServiceLocator.Instance.GetService<IMatchDataSaver>();
+//            return matchDataSaver;
+//        }
+
+//        private MatchData GetMatchData( IMatchDataSaver matchDataSaver )
+//        {
+//            MatchData matchData = matchDataSaver.LoadMatchData();
+//            return matchData;
+//        }
+
+//    }
+//}
+

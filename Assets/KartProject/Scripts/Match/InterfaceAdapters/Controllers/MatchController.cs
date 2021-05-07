@@ -6,10 +6,10 @@ namespace KartRace.Matchs.InterfaceAdapters.Controller
 {
     public class MatchController : MonoBehaviour
     {
-        private IMatchDataSaver matchDataSaver;
+        private Application.Entity.IDataSaver matchDataSaver;
         private MatchData matchData;
 
-        public void Configure( IMatchDataSaver _matchDataSaver, MatchData _matchData )
+        public void Configure( Application.Entity.IDataSaver _matchDataSaver, MatchData _matchData )
         {
             matchDataSaver = _matchDataSaver;
             matchData = _matchData;
@@ -17,7 +17,7 @@ namespace KartRace.Matchs.InterfaceAdapters.Controller
 
         public void SaveMatchData()
         {
-            matchDataSaver.SaveMatchData( matchData );
+            matchDataSaver.SaveData<MatchData>( matchData, "matchData" );
         }
 
         public void AddNumberOfRaces()
