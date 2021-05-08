@@ -1,9 +1,8 @@
-using KartRace.Application;
 using KartRace.Matchs.Domain.Entity;
 
 namespace KartRace.Matchs.Domain.UseCase
 {
-    public class MatchDataSaverJSON : Data.IMatchDataSaver
+    public class MatchDataSaverJSON : IMatchDataSaver
     {
         public MatchData LoadMatchData()
         {

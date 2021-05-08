@@ -2,7 +2,7 @@ using KartRace.Application;
 
 namespace KartRace.Matchs.Domain.UseCase
 {
-    public class MatchDataSaverPlayerPrefs : Data.IMatchDataSaver
+    public class MatchDataSaverPlayerPrefs : Entity.IMatchDataSaver
     {
         public void SaveMatchData( Entity.MatchData playerData )
         {

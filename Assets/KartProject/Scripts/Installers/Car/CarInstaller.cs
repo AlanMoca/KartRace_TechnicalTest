@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace KartRace.Installers
+namespace KartRace.Installers.Car
 {
     public class CarInstaller : MonoBehaviour
     {

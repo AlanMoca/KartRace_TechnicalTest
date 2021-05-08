@@ -205,6 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matchController: {fileID: 177660943}
+  useGenericBinarySaveSyste: 0
 --- !u!4 &29478021
 Transform:
   m_ObjectHideFlags: 0

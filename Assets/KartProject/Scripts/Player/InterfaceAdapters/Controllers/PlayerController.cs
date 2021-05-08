@@ -7,7 +7,7 @@ namespace KartRace.Players.InterfaceAdapters.Controller
 {
     public class PlayerController : MonoBehaviour
     {
-        private Domain.Data.IPlayerDataSaver matchDataSaver;
+        private Domain.Entity.IPlayerDataSaver matchDataSaver;
         private Domain.Entity.PlayerData matchData;
 
         private void OnEnable()
@@ -22,7 +22,7 @@ namespace KartRace.Players.InterfaceAdapters.Controller
 
         private void GetMatchData()
         {
-            matchDataSaver = Application.ServiceLocator.Instance.GetService<KartRace.Players.Domain.Data.IPlayerDataSaver>();
+            matchDataSaver = Application.ServiceLocator.Instance.GetService<Domain.Entity.IPlayerDataSaver>();
             matchData = matchDataSaver.LoadPlayerData();
         }
 

@@ -1,23 +1,35 @@
 using UnityEngine;
-using KartRace.Matchs.Domain.Data;
 using KartRace.Matchs.Domain.Entity;
 
 namespace KartRace.Matchs.InterfaceAdapters.Controller
 {
     public class MatchController : MonoBehaviour
     {
+        private KartRace.SaveSystems.Domain.Entity.IDataSaver genericDataSaver;
         private IMatchDataSaver matchDataSaver;
         private MatchData matchData;
+        private bool useGenericBinarySaveSyste;
+
+        public void Configure( KartRace.SaveSystems.Domain.Entity.IDataSaver _dataSaver, MatchData _matchData )
+        {
+            genericDataSaver = _dataSaver;
+            matchData = _matchData;
+            useGenericBinarySaveSyste = true;
+        }
 
         public void Configure( IMatchDataSaver _matchDataSaver, MatchData _matchData )
         {
             matchDataSaver = _matchDataSaver;
             matchData = _matchData;
+            useGenericBinarySaveSyste = false;
         }
 
         public void SaveMatchData()
         {
-            matchDataSaver.SaveMatchData( matchData );
+            if( useGenericBinarySaveSyste )
+                genericDataSaver.SaveData<MatchData>( matchData, "matchData" );
+            else
+                matchDataSaver.SaveMatchData( matchData );
         }
 
         public void AddNumberOfRaces()

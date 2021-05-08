@@ -1,6 +1,4 @@
-using KartRace.Players.Domain.Entity;
-
-namespace KartRace.Players.Domain.Data
+namespace KartRace.Players.Domain.Entity
 {
     public interface IPlayerDataSaver
     {

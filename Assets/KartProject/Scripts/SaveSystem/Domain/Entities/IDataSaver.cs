@@ -1,4 +1,4 @@
-namespace KartRace.Application.Entity
+namespace KartRace.SaveSystems.Domain.Entity
 {
     public interface IDataSaver
     {

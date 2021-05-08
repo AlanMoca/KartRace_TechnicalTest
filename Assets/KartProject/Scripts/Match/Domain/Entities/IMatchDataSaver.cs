@@ -1,6 +1,4 @@
-using KartRace.Matchs.Domain.Entity;
-
-namespace KartRace.Matchs.Domain.Data
+namespace KartRace.Matchs.Domain.Entity
 {
     public interface IMatchDataSaver
     {

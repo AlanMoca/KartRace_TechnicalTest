@@ -2,15 +2,15 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace KartRace.Application.UseCase
+namespace KartRace.SaveSystems.Domain.UseCase
 {
-    public class DataSaverBinaryFile : Entity.IDataSaver
+    public class DataSaverGenericBinaryFiles : Entity.IDataSaver
     {
         private BinaryFormatter formatter;
         private string filePath;
         private string filePathToRead;
 
-        public DataSaverBinaryFile()
+        public DataSaverGenericBinaryFiles()
         {
             formatter = new BinaryFormatter();
             filePath = "";

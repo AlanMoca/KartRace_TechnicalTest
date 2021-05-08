@@ -1,8 +1,6 @@
-using KartRace.Application;
-
 namespace KartRace.Players.Domain.UseCase
 {
-    public class PlayerDataSaverJSON : Data.IPlayerDataSaver
+    public class PlayerDataSaverJSON : Entity.IPlayerDataSaver
     {
         public Entity.PlayerData LoadPlayerData()
         {
