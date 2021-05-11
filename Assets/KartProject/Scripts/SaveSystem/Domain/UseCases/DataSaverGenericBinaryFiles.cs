@@ -19,17 +19,7 @@ namespace KartRace.SaveSystems.Domain.UseCase
         public void SaveData<T>( T objectData, string fileName ) where T : class
         {
             filePath = GetFilePath( fileName );
-            FileStream stream;
-
-            if( !File.Exists( filePath ) )
-            {
-                stream = OpenFile( fileName );
-                T objectDataTemp = Activator.CreateInstance<T>();
-                formatter.Serialize( stream, objectDataTemp );
-                stream.Close();
-            }
-
-            stream = OpenFile( fileName );
+            FileStream stream = OpenFile( fileName );
             formatter.Serialize( stream, objectData );
             stream.Close();
         }
@@ -47,16 +37,53 @@ namespace KartRace.SaveSystems.Domain.UseCase
                 stream.Close();
             }
 
-            if( !File.Exists( filePath ) )                                                               //Android: change this for filepathToRead
-            {
-                UnityEngine.Debug.LogWarning( "Save file not found " + filePath );
-                return default(T);
-            }
             stream = OpenFile( fileName );
             T objectData = formatter.Deserialize( stream ) as T;
             stream.Close();
             return objectData;
         }
+
+        //public void SaveData<T>( T objectData, string fileName ) where T : class
+        //{
+        //    filePath = GetFilePath( fileName );
+        //    FileStream stream;
+
+        //    if( !File.Exists( filePath ) )
+        //    {
+        //        stream = OpenFile( fileName );
+        //        T objectDataTemp = Activator.CreateInstance<T>();
+        //        formatter.Serialize( stream, objectDataTemp );
+        //        stream.Close();
+        //    }
+
+        //    stream = OpenFile( fileName );
+        //    formatter.Serialize( stream, objectData );
+        //    stream.Close();
+        //}
+
+        //public T LoadData<T>( string fileName ) where T : class
+        //{
+        //    filePath = GetFilePath( fileName );
+        //    FileStream stream;
+
+        //    if( !File.Exists( filePath ) )
+        //    {
+        //        stream = OpenFile( fileName );
+        //        T objectDataTemp = Activator.CreateInstance<T>();
+        //        formatter.Serialize( stream, objectDataTemp );
+        //        stream.Close();
+        //    }
+
+        //    if( !File.Exists( filePath ) )                                                               //Android: change this for filepathToRead
+        //    {
+        //        UnityEngine.Debug.LogWarning( "Save file not found " + filePath );
+        //        return default( T );
+        //    }
+        //    stream = OpenFile( fileName );
+        //    T objectData = formatter.Deserialize( stream ) as T;
+        //    stream.Close();
+        //    return objectData;
+        //}
 
         private string GetFilePath( string fileName )
         {

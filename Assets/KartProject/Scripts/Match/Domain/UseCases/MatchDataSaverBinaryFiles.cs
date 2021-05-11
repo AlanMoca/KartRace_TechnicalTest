@@ -18,17 +18,7 @@ namespace KartRace.Matchs.Domain.UseCase
         public void SaveMatchData( Entity.MatchData matchData )
         {
             filePath = GetFilePath( "matchData" );
-            FileStream stream;
-
-            if( !File.Exists( filePath ) )
-            {
-                stream = OpenFile();
-                Entity.MatchData matchDataTemp = new Entity.MatchData();
-                formatter.Serialize( stream, matchDataTemp );
-                stream.Close();
-            }
-
-            stream = OpenFile();
+            FileStream stream = OpenFile();
             formatter.Serialize( stream, matchData );
             stream.Close();
         }
@@ -38,25 +28,61 @@ namespace KartRace.Matchs.Domain.UseCase
             filePath = GetFilePath( "matchData" );
             FileStream stream;
 
-            if( !File.Exists( filePath ) )
+            if( !File.Exists( filePath ) )                                                          //Android: change this for filepathToRead
             {
                 stream = OpenFile();
                 Entity.MatchData matchDataTemp = new Entity.MatchData();
                 formatter.Serialize( stream, matchDataTemp );
                 stream.Close();
             }
-
-            if( !File.Exists( filePath ) )                                                               //Android: change this for filepathToRead
-            {
-                UnityEngine.Debug.LogWarning( "Save file not found " + filePath );
-                return null;
-            }
-            
             stream = OpenFile();
             Entity.MatchData matchData = formatter.Deserialize( stream ) as Entity.MatchData;
             stream.Close();
             return matchData;
         }
+
+        //public void SaveMatchData( Entity.MatchData matchData )
+        //{
+        //    filePath = GetFilePath( "matchData" );
+        //    FileStream stream;
+
+        //    if( !File.Exists( filePath ) )
+        //    {
+        //        stream = OpenFile();
+        //        Entity.MatchData matchDataTemp = new Entity.MatchData();
+        //        formatter.Serialize( stream, matchDataTemp );
+        //        stream.Close();
+        //    }
+
+        //    stream = OpenFile();
+        //    formatter.Serialize( stream, matchData );
+        //    stream.Close();
+        //}
+
+        //public Entity.MatchData LoadMatchData()
+        //{
+        //    filePath = GetFilePath( "matchData" );
+        //    FileStream stream;
+
+        //    if( !File.Exists( filePath ) )
+        //    {
+        //        stream = OpenFile();
+        //        Entity.MatchData matchDataTemp = new Entity.MatchData();
+        //        formatter.Serialize( stream, matchDataTemp );
+        //        stream.Close();
+        //    }
+
+        //    if( !File.Exists( filePath ) )                                                               //Android: change this for filepathToRead
+        //    {
+        //        UnityEngine.Debug.LogWarning( "Save file not found " + filePath );
+        //        return null;
+        //    }
+
+        //    stream = OpenFile();
+        //    Entity.MatchData matchData = formatter.Deserialize( stream ) as Entity.MatchData;
+        //    stream.Close();
+        //    return matchData;
+        //}
 
         //The static class is encapsulated to avoid coupling. If we use the "File" class and its methods more, we should create an adapter.
         private FileStream OpenFile()

@@ -7,7 +7,7 @@ namespace KartRace.Installers.SaveSystem.Selection
         private void Awake()
         {
             MatchDataSaverRegisterService();
-            GetComponent<DataSaverBinaryFilesInstaller>().enabled = false;
+            //GetComponent<DataSaverPlayerPrefsInstaller>().enabled = false;
         }
 
         public void MatchDataSaverRegisterService()
