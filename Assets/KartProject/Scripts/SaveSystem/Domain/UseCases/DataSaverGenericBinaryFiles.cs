@@ -43,59 +43,6 @@ namespace KartRace.SaveSystems.Domain.UseCase
             return objectData;
         }
 
-        //public void SaveData<T>( T objectData, string fileName ) where T : class
-        //{
-        //    filePath = GetFilePath( fileName );
-        //    FileStream stream;
-
-        //    if( !File.Exists( filePath ) )
-        //    {
-        //        stream = OpenFile( fileName );
-        //        T objectDataTemp = Activator.CreateInstance<T>();
-        //        formatter.Serialize( stream, objectDataTemp );
-        //        stream.Close();
-        //    }
-
-        //    stream = OpenFile( fileName );
-        //    formatter.Serialize( stream, objectData );
-        //    stream.Close();
-        //}
-
-        //public T LoadData<T>( string fileName ) where T : class
-        //{
-        //    filePath = GetFilePath( fileName );
-        //    FileStream stream;
-
-        //    if( !File.Exists( filePath ) )
-        //    {
-        //        stream = OpenFile( fileName );
-        //        T objectDataTemp = Activator.CreateInstance<T>();
-        //        formatter.Serialize( stream, objectDataTemp );
-        //        stream.Close();
-        //    }
-
-        //    if( !File.Exists( filePath ) )                                                               //Android: change this for filepathToRead
-        //    {
-        //        UnityEngine.Debug.LogWarning( "Save file not found " + filePath );
-        //        return default( T );
-        //    }
-        //    stream = OpenFile( fileName );
-        //    T objectData = formatter.Deserialize( stream ) as T;
-        //    stream.Close();
-        //    return objectData;
-        //}
-
-        private string GetFilePath( string fileName )
-        {
-#if UNITY_EDITOR
-            filePath = $"{UnityEngine.Application.persistentDataPath}/{fileName}.data";
-#elif UNITY_ANDROID
-            //filePath = $"jar:file://{UnityEngine.Application.dataPath}!/assets/{fileName}.data";
-            //filePathToRead = "jar:file://" + Application.dataPath + "!/assets/matchdata.data";
-#endif
-            return filePath;
-        }
-
         //The static class is encapsulated to avoid coupling. If we use the "File" class and its methods more, we should create an adapter.
         private FileStream OpenFile( string fileName )
         {
@@ -104,6 +51,33 @@ namespace KartRace.SaveSystems.Domain.UseCase
             //return new FileStream( filePath, FileMode.Open );
         }
 
-        
+        private string GetFilePath( string fileName )
+        {
+            if( !string.IsNullOrEmpty( filePath ) )                                              //Se cumplen reglas de "clausula de guarda" y "tell don´t ask".
+            {
+                return filePath;
+            }
+
+            var directoryPath = $"{UnityEngine.Application.persistentDataPath}/saves";
+            ValidateDirectory( directoryPath );
+
+#if UNITY_EDITOR
+            filePath = $"{directoryPath}/{fileName}.data";
+#elif UNITY_ANDROID
+            //filePath = $"jar:file://{UnityEngine.Application.dataPath}!/assets/{fileName}.data";              //Check. Folder "saves" will affect saved in android?
+            //filePathToRead = "jar:file://" + Application.dataPath + "!/assets/matchdata.data";
+#endif
+            return filePath;
+        }
+
+        private void ValidateDirectory( string directoryPath )
+        {
+            if( Directory.Exists( directoryPath ) )
+            {
+                return;
+            }
+            Directory.CreateDirectory( directoryPath );
+        }
+
     }
 }

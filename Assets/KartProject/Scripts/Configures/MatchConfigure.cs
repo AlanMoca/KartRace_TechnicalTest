@@ -16,11 +16,6 @@ namespace KartRace.Configures
         //When it is configuration, the star is used so that it gives time to the installers to create the instances
         private void Start()
         {
-            //var matchDataSaver = GetMatchDataSaverTypeService();
-            //var matchData = GetMatchData( matchDataSaver );
-
-            //matchController.Configure( matchDataSaver, matchData );
-
             if( useGenericBinarySaveSyste )
             {
                 var genericDataSaver = GetGenericDataSaverTypeService();

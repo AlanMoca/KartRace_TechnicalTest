@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace KartRace.CheckPoints.Domain.UseCase
@@ -11,7 +9,6 @@ namespace KartRace.CheckPoints.Domain.UseCase
 
         private void OnTriggerEnter( Collider other )
         {
-
             inGameTimer.AddTimeToTimer();
             OnGrabPoint?.Invoke();
             Destroy( gameObject );
