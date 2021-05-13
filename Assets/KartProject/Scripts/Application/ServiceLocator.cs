@@ -24,7 +24,7 @@ namespace KartRace.Application
                 services.Add( type, service );
                 return;
             }
-            Assert.IsFalse( services.ContainsKey( type ), $"Service {type} already registered" );
+            //Assert.IsFalse( services.ContainsKey( type ), $"Service {type} already registered" );
         }
 
         public T GetService<T>()

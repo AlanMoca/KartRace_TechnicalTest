@@ -2,7 +2,6 @@ using System.IO;
 
 namespace KartRace.Application
 {
-    
     public interface IFile
     {
         public void Copy( string sourceFileName, string destFileName );

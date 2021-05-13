@@ -10,16 +10,17 @@ namespace KartRace.Configures
         [SerializeField] private MatchController matchController;
 
         [Header( "Save System" )]
-        [Tooltip( "Use a Generic Save System for Binary Files or the one that was configured in the installers" )]
-        [SerializeField] private bool useGenericBinarySaveSyste;
+        [Tooltip( "Use a Generic Save System for Binary Files or the one that was configured in the installers. This option must also be activated in the others scenes." )]
+        [SerializeField] private bool useGenericSaveSystem;
 
         //When it is configuration, the star is used so that it gives time to the installers to create the instances
         private void Start()
         {
-            if( useGenericBinarySaveSyste )
+            if( useGenericSaveSystem )
             {
                 var genericDataSaver = GetGenericDataSaverTypeService();
                 var matchData = GetMatchDataFromGenericSaveSystem( genericDataSaver );
+                //var playerData = GetPlayerDataFromGenericSaveSystem( genericDataSaver );      //Create method
 
                 matchController.Configure( genericDataSaver, matchData );
             }
@@ -35,8 +36,8 @@ namespace KartRace.Configures
 
         private SaveSystems.Domain.Entity.IDataSaver GetGenericDataSaverTypeService()
         {
-            KartRace.SaveSystems.Domain.Entity.IDataSaver matchDataSaver = Application.ServiceLocator.Instance.GetService<SaveSystems.Domain.Entity.IDataSaver>();
-            return matchDataSaver;
+            KartRace.SaveSystems.Domain.Entity.IDataSaver dataSaver = Application.ServiceLocator.Instance.GetService<SaveSystems.Domain.Entity.IDataSaver>();
+            return dataSaver;
         }
 
         private MatchData GetMatchDataFromGenericSaveSystem( KartRace.SaveSystems.Domain.Entity.IDataSaver matchDataSaver )

@@ -8,25 +8,25 @@ namespace KartRace.Matchs.InterfaceAdapters.Controller
         private KartRace.SaveSystems.Domain.Entity.IDataSaver genericDataSaver;
         private IMatchDataSaver matchDataSaver;
         private MatchData matchData;
-        private bool useGenericBinarySaveSyste;
+        private bool useGenericSaveSyste;
 
         public void Configure( KartRace.SaveSystems.Domain.Entity.IDataSaver _dataSaver, MatchData _matchData )
         {
             genericDataSaver = _dataSaver;
             matchData = _matchData;
-            useGenericBinarySaveSyste = true;
+            useGenericSaveSyste = true;
         }
 
         public void Configure( IMatchDataSaver _matchDataSaver, MatchData _matchData )
         {
             matchDataSaver = _matchDataSaver;
             matchData = _matchData;
-            useGenericBinarySaveSyste = false;
+            useGenericSaveSyste = false;
         }
 
         public void SaveMatchData()
         {
-            if( useGenericBinarySaveSyste )
+            if( useGenericSaveSyste )
                 genericDataSaver.SaveData<MatchData>( matchData, "matchData" );
             else
                 matchDataSaver.SaveMatchData( matchData );

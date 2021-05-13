@@ -35,7 +35,7 @@ namespace KartRace.Matchs.Domain.UseCase
             if( File.Exists( filePath ) )                                                          //Android: change this for filepathToRead
             {
                 var stream = fileSystem.Open( filePath, FileMode.OpenOrCreate );
-                Entity.MatchData matchData = formatter.Deserialize( stream ) as Entity.MatchData;
+                MatchData matchData = formatter.Deserialize( stream ) as MatchData;
                 stream.Close();
                 return matchData;
             }

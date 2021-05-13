@@ -2997,7 +2997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matchController: {fileID: 1876500184}
-  useGenericBinarySaveSyste: 0
+  useGenericSaveSystem: 1
 --- !u!4 &1400729344
 Transform:
   m_ObjectHideFlags: 0
@@ -3021,10 +3021,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1425303233}
-  - component: {fileID: 1425303232}
   - component: {fileID: 1425303236}
-  - component: {fileID: 1425303235}
-  - component: {fileID: 1425303234}
+  - component: {fileID: 1425303232}
   m_Layer: 0
   m_Name: ======= INSTALLERS =======
   m_TagString: Untagged
@@ -3058,30 +3056,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1425303234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1425303231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b8d29b4ad1816c46920e469fb063229, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1425303235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1425303231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3779a0003a56604f9511a25f29d39c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1425303236
 MonoBehaviour:
   m_ObjectHideFlags: 0

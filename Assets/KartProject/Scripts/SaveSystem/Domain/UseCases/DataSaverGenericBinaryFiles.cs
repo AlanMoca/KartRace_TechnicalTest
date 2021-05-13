@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using KartRace.Application;
 
 namespace KartRace.SaveSystems.Domain.UseCase
 {
@@ -18,8 +19,10 @@ namespace KartRace.SaveSystems.Domain.UseCase
 
         public void SaveData<T>( T objectData, string fileName ) where T : class
         {
+            var fileSystem = ServiceLocator.Instance.GetService<IFile>();
+
             filePath = GetFilePath( fileName );
-            FileStream stream = OpenFile( fileName );
+            FileStream stream = fileSystem.Open( filePath, FileMode.OpenOrCreate );
             formatter.Serialize( stream, objectData );
             stream.Close();
         }
@@ -27,28 +30,17 @@ namespace KartRace.SaveSystems.Domain.UseCase
         public T LoadData<T>( string fileName ) where T : class
         {
             filePath = GetFilePath( fileName );
-            FileStream stream;
+            var fileSystem = ServiceLocator.Instance.GetService<IFile>();
 
-            if( !File.Exists( filePath ) )
+            if( File.Exists( filePath ) )
             {
-                stream = OpenFile( fileName );
-                T objectDataTemp = Activator.CreateInstance<T>();
-                formatter.Serialize( stream, objectDataTemp );
+                var stream = fileSystem.Open( filePath, FileMode.OpenOrCreate );
+                T objectData = formatter.Deserialize( stream ) as T;
                 stream.Close();
+                return objectData;
             }
 
-            stream = OpenFile( fileName );
-            T objectData = formatter.Deserialize( stream ) as T;
-            stream.Close();
-            return objectData;
-        }
-
-        //The static class is encapsulated to avoid coupling. If we use the "File" class and its methods more, we should create an adapter.
-        private FileStream OpenFile( string fileName )
-        {
-            filePath = GetFilePath( fileName );
-            return File.Open( filePath, FileMode.OpenOrCreate );
-            //return new FileStream( filePath, FileMode.Open );
+            return ValidatingMatchDataFile<T>( filePath );
         }
 
         private string GetFilePath( string fileName )
@@ -77,6 +69,17 @@ namespace KartRace.SaveSystems.Domain.UseCase
                 return;
             }
             Directory.CreateDirectory( directoryPath );
+        }
+
+        private T ValidatingMatchDataFile<T>( string filePath )
+        {
+            var fileSystem = ServiceLocator.Instance.GetService<IFile>();
+
+            var stream = fileSystem.Open( filePath, FileMode.OpenOrCreate );                    //new FileStream( filePath, FileMode.Open );
+            T objectDataTemp = Activator.CreateInstance<T>();
+            formatter.Serialize( stream, objectDataTemp );
+            stream.Close();
+            return objectDataTemp;
         }
 
     }

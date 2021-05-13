@@ -1,49 +1,53 @@
+using System;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using KartRace.Application;
-using KartRace.Matchs.Domain.Entity;
 
-namespace KartRace.Matchs.Domain.UseCase
+namespace KartRace.SaveSystems.Domain.UseCase
 {
-    public class MatchDataSaverJSON : IMatchDataSaver
+    public class DataSaverGenericJsonUtilize : Entity.IDataSaver
     {
+        private BinaryFormatter formatter;
         private string filePath;
         private string filePathToRead;
 
-        public MatchDataSaverJSON()
+        public DataSaverGenericJsonUtilize()
         {
+            formatter = new BinaryFormatter();
             filePath = "";
         }
 
-        public void SaveMatchData( MatchData matchData )
+        public void SaveData<T>( T objectData, string fileName ) where T : class
         {
             var dataParser = ServiceLocator.Instance.GetService<IParser>();
             var fileSystem = ServiceLocator.Instance.GetService<IFile>();
 
-            filePath = GetFilePath( "matchdata" );
-            var dataInJson = dataParser.Serialize<MatchData>( matchData );
+            filePath = GetFilePath( fileName );
+            var dataInJson = dataParser.Serialize<T>( objectData );
             fileSystem.WriteAllText( filePath, dataInJson );
         }
 
-        public MatchData LoadMatchData()
+        public T LoadData<T>( string fileName ) where T : class
         {
             var dataParser = ServiceLocator.Instance.GetService<IParser>();
             var fileSystem = ServiceLocator.Instance.GetService<IFile>();
 
-            filePath = GetFilePath( "matchdata" );
-            if( fileSystem.Exists( filePath ) )                                                //Android: change this for filepathToRead
+            filePath = GetFilePath( fileName );
+
+            if( fileSystem.Exists( filePath ) )                                                 //Android: change this for filepathToRead
             {
                 var jsonString = fileSystem.ReadAllText( filePath );
-                var matchData = dataParser.Deserialize<MatchData>( jsonString );
+                var matchData = dataParser.Deserialize<T>( jsonString );
 
                 return matchData;
             }
 
-            return ValidatingMatchDataFile( filePath );
+            return ValidatingMatchDataFile<T>( filePath );
         }
 
         private string GetFilePath( string fileName )
         {
-            if( !string.IsNullOrEmpty( filePath ) )                                              //The rules of "clausula de guarda" & "tell don´t ask" are fulfilled.
+            if( !string.IsNullOrEmpty( filePath ) )                                             //Se cumplen reglas de "clausula de guarda" y "tell don´t ask".
             {
                 return filePath;
             }
@@ -54,8 +58,8 @@ namespace KartRace.Matchs.Domain.UseCase
 #if UNITY_EDITOR
             filePath = $"{directoryPath}/{fileName}.json";
 #elif UNITY_ANDROID
-            //filePath = $"jar:file://{UnityEngine.Application.dataPath}!/assets/{fileName}.json";
-            //filePathToRead = "jar:file://" + Application.dataPath + "!/assets/matchdata.json";
+            //filePath = $"jar:file://{UnityEngine.Application.dataPath}!/assets/{fileName}.data";              //Check. Folder "saves" will affect saved in android?
+            //filePathToRead = "jar:file://" + Application.dataPath + "!/assets/matchdata.data";
 #endif
             return filePath;
         }
@@ -69,17 +73,19 @@ namespace KartRace.Matchs.Domain.UseCase
             Directory.CreateDirectory( directoryPath );
         }
 
-        private MatchData ValidatingMatchDataFile( string filePath )
+        private T ValidatingMatchDataFile<T>( string filePath )
         {
             var dataParser = ServiceLocator.Instance.GetService<IParser>();
             var fileSystem = ServiceLocator.Instance.GetService<IFile>();
 
             var stream = fileSystem.Create( filePath );
             stream.Close();                                                                 //It closes because it cannot share the smae FileStream. You cannot open/creat it at the same time as writing or reading.
-            MatchData matchDataTemp = new MatchData();
-            var dataInJson = dataParser.Serialize<MatchData>( matchDataTemp );
+            T objectDataTemp = Activator.CreateInstance<T>();
+            var dataInJson = dataParser.Serialize<T>( objectDataTemp );
             fileSystem.WriteAllText( filePath, dataInJson );
-            return matchDataTemp;
+
+            return objectDataTemp;
         }
+
     }
 }
