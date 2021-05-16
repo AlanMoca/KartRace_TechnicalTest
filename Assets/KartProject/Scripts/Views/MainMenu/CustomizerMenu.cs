@@ -28,7 +28,6 @@ namespace KartRace.Views.MainMenu
         {
             customizerMenu.SetActive( true );
 
-
             if( carTransform == myDesiredCarPosition )
             {
                 return;
@@ -51,6 +50,6 @@ namespace KartRace.Views.MainMenu
             carSequence.
                 Append( carTransform.DOMove( myDesiredCarPosition.position, 0.75f, false ) ).
                 Join( carTransform.DORotateQuaternion( myDesiredCarPosition.rotation, 0.75f ) );
-        }        
+        }
     }
 }

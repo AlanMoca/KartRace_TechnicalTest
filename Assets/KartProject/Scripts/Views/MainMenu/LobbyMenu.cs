@@ -6,24 +6,27 @@ namespace KartRace.Views.MainMenu
 {
     public class LobbyMenu : MonoBehaviour
     {
-        [Header( "UI Elements" )]
-        [SerializeField] private Transform myDesiredCarPosition;
+        [Header( "Events Class Instance" )]
+        [SerializeField] private Events.LobbyPlayButton lobbyPlayButton;
 
-        //Instance of Class
+        [Header( "UI Elements" )]
+        [SerializeField] private Image logoImage;
+        [SerializeField] private Transform playButton;
+        [SerializeField] private Transform desiredCarPosition;
+
         private MainMenuMediator mediator;
         private Animations.LobbyMenuAnimations lobbyMenuAnimations;
 
-        //Unity Instance Elements
         private GameObject lobbyMenu;
         private Transform carTransform;
-        
 
         public void Configure( MainMenuMediator menuMediator, Transform _car )
         {
             mediator = menuMediator;
             carTransform = _car;
 
-            lobbyMenuAnimations = new Animations.LobbyMenuAnimations( carTransform, myDesiredCarPosition );
+            lobbyMenuAnimations = new Animations.LobbyMenuAnimations( carTransform, desiredCarPosition, logoImage, playButton );
+            lobbyPlayButton.Configure( lobbyMenuAnimations );
         }
 
         private void Awake()
@@ -36,7 +39,7 @@ namespace KartRace.Views.MainMenu
             lobbyMenu.SetActive( true );
 
 
-            if( carTransform == myDesiredCarPosition )
+            if( carTransform == desiredCarPosition )
             {
                 return;
             }
