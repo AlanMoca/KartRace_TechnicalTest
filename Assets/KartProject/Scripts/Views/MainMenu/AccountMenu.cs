@@ -11,12 +11,12 @@ namespace KartRace.Views.MainMenu
         [SerializeField] private Transform myDesiredCarPosition;
 
         private MainMenuMediator mediator;
-        private Transform currentCarPosition;
+        private Transform carTransform;
 
-        public void Configure( MainMenuMediator menuMediator, Transform carPosition )
+        public void Configure( MainMenuMediator menuMediator, Transform _car )
         {
             mediator = menuMediator;
-            currentCarPosition = carPosition;
+            carTransform = _car;
         }
 
         private void Awake()

@@ -7,18 +7,23 @@ namespace KartRace.Views.MainMenu
     public class LobbyMenu : MonoBehaviour
     {
         [Header( "UI Elements" )]
-        [SerializeField] private GameObject lobbyMenu;
-        //[SerializeField] private Image lobbyBackgroundImage;
         [SerializeField] private Transform myDesiredCarPosition;
 
+        //Instance of Class
         private MainMenuMediator mediator;
-        private Transform currentCarPosition;
+        private Animations.LobbyMenuAnimations lobbyMenuAnimations;
+
+        //Unity Instance Elements
+        private GameObject lobbyMenu;
+        private Transform carTransform;
         
 
-        public void Configure( MainMenuMediator menuMediator, Transform carPosition )
+        public void Configure( MainMenuMediator menuMediator, Transform _car )
         {
             mediator = menuMediator;
-            currentCarPosition = carPosition;
+            carTransform = _car;
+
+            lobbyMenuAnimations = new Animations.LobbyMenuAnimations( carTransform, myDesiredCarPosition );
         }
 
         private void Awake()
@@ -31,40 +36,17 @@ namespace KartRace.Views.MainMenu
             lobbyMenu.SetActive( true );
 
 
-            if( currentCarPosition == myDesiredCarPosition )
+            if( carTransform == myDesiredCarPosition )
             {
                 return;
             }
 
-            AnimateCarPosition();
+            lobbyMenuAnimations.AnimateCarPosition();
         }
 
         public void Hide()
         {
             lobbyMenu.SetActive( false );
         }
-
-        private void AnimateCarPosition()
-        {
-            var carSequence = DOTween.Sequence();
-
-            carSequence.
-                Append( currentCarPosition.DOMove( myDesiredCarPosition.position, 0.75f, false ) ).
-                Join( currentCarPosition.DORotateQuaternion( myDesiredCarPosition.rotation, 0.75f ) );
-        }
-
-        //private void AnimateTransitionBetweenMenus()
-        //{
-        //    var transparentColor = lobbyBackgroundImage.color;
-        //    var opaqueColor = lobbyBackgroundImage.color;
-        //    opaqueColor.a = 1;
-
-        //    var backgoundSequence = DOTween.Sequence();
-
-        //    backgoundSequence.
-        //        Append( lobbyBackgroundImage.DOColor( opaqueColor, 0.20f ) ).
-        //        Append( lobbyBackgroundImage.DOColor( transparentColor, 0.20f ) );
-        //}
-
     }
 }

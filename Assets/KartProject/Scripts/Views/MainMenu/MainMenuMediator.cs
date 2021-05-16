@@ -55,6 +55,7 @@ namespace KartRace.Views.MainMenu
 
         public void LobbyMenu()
         {
+            DOTween.KillAll();
             AnimateTransitionBetweenMenus();
             lobbyMenu.Show();
             customizerMenu.Hide();
@@ -65,6 +66,7 @@ namespace KartRace.Views.MainMenu
 
         public void CustomizerMenu()
         {
+            DOTween.KillAll();
             AnimateTransitionBetweenMenus();
             lobbyMenu.Hide();
             customizerMenu.Show();

@@ -11,12 +11,12 @@ namespace KartRace.Views.MainMenu
         [SerializeField] private Transform myDesiredCarPosition;
 
         private MainMenuMediator mediator;
-        private Transform currentCarPosition;
+        private Transform carTransform;
 
-        public void Configure( MainMenuMediator menuMediator, Transform carPosition )
+        public void Configure( MainMenuMediator menuMediator, Transform _car )
         {
             mediator = menuMediator;
-            currentCarPosition = carPosition;
+            carTransform = _car;
         }
 
         private void Awake()
@@ -29,7 +29,7 @@ namespace KartRace.Views.MainMenu
             customizerMenu.SetActive( true );
 
 
-            if( currentCarPosition == myDesiredCarPosition )
+            if( carTransform == myDesiredCarPosition )
             {
                 return;
             }
@@ -44,11 +44,13 @@ namespace KartRace.Views.MainMenu
 
         private void AnimateCarPosition()
         {
+            carTransform.DOKill();
+
             var carSequence = DOTween.Sequence();
 
             carSequence.
-                Append( currentCarPosition.DOMove( myDesiredCarPosition.position, 0.75f, false ) ).
-                Join( currentCarPosition.DORotateQuaternion( myDesiredCarPosition.rotation, 0.75f ) );
+                Append( carTransform.DOMove( myDesiredCarPosition.position, 0.75f, false ) ).
+                Join( carTransform.DORotateQuaternion( myDesiredCarPosition.rotation, 0.75f ) );
         }        
     }
 }
