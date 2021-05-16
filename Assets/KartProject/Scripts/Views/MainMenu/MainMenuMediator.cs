@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace KartRace.Views.MainMenu
 {
@@ -13,11 +14,15 @@ namespace KartRace.Views.MainMenu
         [SerializeField] private AccountMenu accountMenu;
 
         [Header( "UI Elements" )]
+        [SerializeField] private Image transitionBetweenMenusImage;
         [SerializeField] private Button lobbyMenuButton;
         [SerializeField] private Button customizerMenuButton;
         [SerializeField] private Button shopMenuButton;
         [SerializeField] private Button settingsMenuButton;
         [SerializeField] private Button accountMenuButton;
+
+        [Header( "UI 3D Elements" )]
+        [SerializeField] private Transform car;
 
         [SerializeField] private ScoreMenu scoreMenu;
         [SerializeField] private GameObject mainMenu;
@@ -25,11 +30,11 @@ namespace KartRace.Views.MainMenu
 
         private void Awake()
         {
-            lobbyMenu.Configure( this );
-            customizerMenu.Configure( this );
-            shopMenu.Configure( this );
-            settingsMenu.Configure( this );
-            accountMenu.Configure( this );
+            lobbyMenu.Configure( this, car );
+            customizerMenu.Configure( this, car );
+            shopMenu.Configure( this, car );
+            settingsMenu.Configure( this, car );
+            accountMenu.Configure( this, car );
 
             lobbyMenuButton.onClick.AddListener( () => LobbyMenu() );
             customizerMenuButton.onClick.AddListener( () => CustomizerMenu() );
@@ -42,6 +47,7 @@ namespace KartRace.Views.MainMenu
 
         private void Start()
         {
+            DOTween.Init();
             LobbyMenu();
 
             scoreMenu.Hide();
@@ -49,6 +55,7 @@ namespace KartRace.Views.MainMenu
 
         public void LobbyMenu()
         {
+            AnimateTransitionBetweenMenus();
             lobbyMenu.Show();
             customizerMenu.Hide();
             shopMenu.Hide();
@@ -58,6 +65,7 @@ namespace KartRace.Views.MainMenu
 
         public void CustomizerMenu()
         {
+            AnimateTransitionBetweenMenus();
             lobbyMenu.Hide();
             customizerMenu.Show();
             shopMenu.Hide();
@@ -67,6 +75,7 @@ namespace KartRace.Views.MainMenu
 
         public void ShopMenu()
         {
+            AnimateTransitionBetweenMenus();
             lobbyMenu.Hide();
             customizerMenu.Hide();
             shopMenu.Show();
@@ -76,6 +85,7 @@ namespace KartRace.Views.MainMenu
 
         public void SettingsMenu()
         {
+            AnimateTransitionBetweenMenus();
             lobbyMenu.Hide();
             customizerMenu.Hide();
             shopMenu.Hide();
@@ -85,11 +95,25 @@ namespace KartRace.Views.MainMenu
 
         public void AccountMenu()
         {
+            AnimateTransitionBetweenMenus();
             lobbyMenu.Hide();
             customizerMenu.Hide();
             shopMenu.Hide();
             settingsMenu.Hide();
             accountMenu.Show();
+        }
+
+        private void AnimateTransitionBetweenMenus()
+        {
+            var transparentColor = transitionBetweenMenusImage.color;
+            var opaqueColor = transitionBetweenMenusImage.color;
+            opaqueColor.a = 1;
+
+            var backgoundSequence = DOTween.Sequence();
+
+            backgoundSequence.
+                Append( transitionBetweenMenusImage.DOColor( opaqueColor, 0.05f ) ).
+                Append( transitionBetweenMenusImage.DOColor( transparentColor, 0.05f ) );
         }
 
         public void ScoreMenu()
@@ -103,6 +127,7 @@ namespace KartRace.Views.MainMenu
             scoreMenu.Hide();
             mainMenu.SetActive( true );
         }
+
     }
 }
 
