@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace KartRace.Views.MainMenu.Events
+namespace KartRace.Views.MainMenu.Event
 {
     public class LobbyPlayButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {

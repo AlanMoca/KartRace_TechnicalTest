@@ -7,11 +7,13 @@ namespace KartRace.Views.MainMenu
     public class MainMenuMediator : MonoBehaviour
     {
         [Header( "Class Instance" )]
+        [SerializeField] private Matchs.InterfaceAdapters.Controller.MatchController matchController;
         [SerializeField] private LobbyMenu lobbyMenu;
         [SerializeField] private CustomizerMenu customizerMenu;
         [SerializeField] private ShopMenu shopMenu;
         [SerializeField] private SettingsMenu settingsMenu;
         [SerializeField] private AccountMenu accountMenu;
+        [SerializeField] private TransitionBetweenScenes transitionBetweenScenes;
 
         private Animations.MainMenuAnimations mainMenuAnimations;
 
@@ -23,18 +25,18 @@ namespace KartRace.Views.MainMenu
         [SerializeField] private Button settingsMenuButton;
         [SerializeField] private Button accountMenuButton;
 
-        [Header( "UI 3D Elements" )]
+        [Header( "UI Objects References" )]
         [SerializeField] private Transform car;
 
         [SerializeField] private ScoreMenu scoreMenu;
         [SerializeField] private GameObject mainMenu;
-        [SerializeField] private Matchs.InterfaceAdapters.Controller.MatchController matchController;
+        
 
         private void Awake()
         {
             mainMenuAnimations = new Animations.MainMenuAnimations( transitionBetweenMenusImage );
 
-            lobbyMenu.Configure( this, car );
+            lobbyMenu.Configure( this, car, transitionBetweenScenes );
             customizerMenu.Configure( this, car );
             shopMenu.Configure( this, car );
             settingsMenu.Configure( this, car );
@@ -99,7 +101,7 @@ namespace KartRace.Views.MainMenu
             lobbyMenu.Hide();
             customizerMenu.Hide();
             shopMenu.Hide();
-            settingsMenu.Show();
+            settingsMenu.Show( matchController );
             accountMenu.Hide();
         }
 

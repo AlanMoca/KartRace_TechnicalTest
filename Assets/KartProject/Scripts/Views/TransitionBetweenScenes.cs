@@ -105,6 +105,7 @@ public class TransitionBetweenScenes : MonoBehaviour
     
     public void LoadScene( string scene )
     {
+        //DG.Tweening.DOTween.KillAll();
         if( !SceneManager.GetSceneByName( scene ).isLoaded )
         {
             StartCoroutine( WaitToSetActive( scene ) );

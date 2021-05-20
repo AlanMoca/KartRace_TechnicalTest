@@ -8,15 +8,19 @@ namespace KartRace.Views.MainMenu
     {
         [Header( "UI Elements" )]
         [SerializeField] private GameObject customizerMenu;
-        [SerializeField] private Transform myDesiredCarPosition;
+        [SerializeField] private Transform desiredCarPosition;
 
         private MainMenuMediator mediator;
+        private Animations.CustomizerMenuAnimations customizerMenuAnimations;
+
         private Transform carTransform;
 
         public void Configure( MainMenuMediator menuMediator, Transform _car )
         {
             mediator = menuMediator;
             carTransform = _car;
+
+            customizerMenuAnimations = new Animations.CustomizerMenuAnimations( carTransform, desiredCarPosition );
         }
 
         private void Awake()
@@ -28,28 +32,17 @@ namespace KartRace.Views.MainMenu
         {
             customizerMenu.SetActive( true );
 
-            if( carTransform == myDesiredCarPosition )
+            if( carTransform == desiredCarPosition )
             {
                 return;
             }
 
-            AnimateCarPosition();
+            customizerMenuAnimations.AnimateCarPosition();
         }
 
         public void Hide()
         {
             customizerMenu.SetActive( false );
-        }
-
-        private void AnimateCarPosition()
-        {
-            carTransform.DOKill();
-
-            var carSequence = DOTween.Sequence();
-
-            carSequence.
-                Append( carTransform.DOMove( myDesiredCarPosition.position, 0.75f, false ) ).
-                Join( carTransform.DORotateQuaternion( myDesiredCarPosition.rotation, 0.75f ) );
         }
     }
 }

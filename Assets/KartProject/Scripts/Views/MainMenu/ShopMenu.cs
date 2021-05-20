@@ -8,15 +8,18 @@ namespace KartRace.Views.MainMenu
     {
         [Header( "UI Elements" )]
         [SerializeField] private GameObject shopMenu;
-        [SerializeField] private Transform myDesiredCarPosition;
+        [SerializeField] private Transform desiredCarPosition;
 
         private MainMenuMediator mediator;
+        private Animations.ShopMenuAnimations shopMenuAnimations;
         private Transform carTransform;
 
         public void Configure( MainMenuMediator menuMediator, Transform _car )
         {
             mediator = menuMediator;
             carTransform = _car;
+
+            shopMenuAnimations = new Animations.ShopMenuAnimations( carTransform, desiredCarPosition );
         }
 
         private void Awake()
@@ -27,6 +30,13 @@ namespace KartRace.Views.MainMenu
         public void Show()
         {
             shopMenu.SetActive( true );
+
+            if( carTransform == desiredCarPosition )
+            {
+                return;
+            }
+
+            shopMenuAnimations.AnimateCarPosition();
         }
 
         public void Hide()
