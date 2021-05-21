@@ -38,9 +38,9 @@ namespace KartRace.Views.MainMenu
             var racesWon = matchController.GetRacesWon();
             var numberOfRaces = matchController.GetNumberOfRaces();
 
-            bestTimeText.text = $"Best Time: {bestTime.ToString( "F" )}";
-            racesWonText.text = $"Races Won: {racesWon.ToString( "F0" )}";
-            numberOfRacesText.text = $"Number of Races: {numberOfRaces.ToString( "F0" )}";
+            bestTimeText.text = $"{bestTime.ToString( "F" )}";
+            racesWonText.text = $"{racesWon.ToString( "F0" )}";
+            numberOfRacesText.text = $"{numberOfRaces.ToString( "F0" )}";
 
             if( carTransform == desiredCarPosition )
             {

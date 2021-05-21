@@ -19,6 +19,7 @@ namespace KartRace.Views.MainMenu
 
         [Header( "UI Elements" )]
         [SerializeField] private Image transitionBetweenMenusImage;
+        [SerializeField] private Text sectionText;
         [SerializeField] private Button lobbyMenuButton;
         [SerializeField] private Button customizerMenuButton;
         [SerializeField] private Button shopMenuButton;
@@ -63,6 +64,7 @@ namespace KartRace.Views.MainMenu
         {
             DOTween.KillAll();
             mainMenuAnimations.AnimateTransitionBetweenMenus();
+            sectionText.text = "Lobby";
 
             lobbyMenu.Show();
             customizerMenu.Hide();
@@ -75,6 +77,7 @@ namespace KartRace.Views.MainMenu
         {
             DOTween.KillAll();
             mainMenuAnimations.AnimateTransitionBetweenMenus();
+            sectionText.text = "Customizer";
 
             lobbyMenu.Hide();
             customizerMenu.Show();
@@ -85,7 +88,9 @@ namespace KartRace.Views.MainMenu
 
         public void ShopMenu()
         {
+            DOTween.KillAll();
             mainMenuAnimations.AnimateTransitionBetweenMenus();
+            sectionText.text = "Shop";
 
             lobbyMenu.Hide();
             customizerMenu.Hide();
@@ -96,7 +101,9 @@ namespace KartRace.Views.MainMenu
 
         public void SettingsMenu()
         {
+            DOTween.KillAll();
             mainMenuAnimations.AnimateTransitionBetweenMenus();
+            sectionText.text = "Settings";
 
             lobbyMenu.Hide();
             customizerMenu.Hide();
@@ -107,7 +114,9 @@ namespace KartRace.Views.MainMenu
 
         public void AccountMenu()
         {
+            DOTween.KillAll();
             mainMenuAnimations.AnimateTransitionBetweenMenus();
+            sectionText.text = "Account";
 
             lobbyMenu.Hide();
             customizerMenu.Hide();
@@ -130,40 +139,3 @@ namespace KartRace.Views.MainMenu
 
     }
 }
-
-
-
-//using UnityEngine;
-
-//namespace KartRace.Views.MainMenu
-//{
-//    public class MainMenuMediator : MonoBehaviour
-//    {
-//        [SerializeField] private ScoreMenu scoreMenu;
-//        [SerializeField] private GameObject mainMenu;
-//        [SerializeField] private Matchs.InterfaceAdapters.Controller.MatchController matchController;
-
-//        private void Awake()
-//        {
-//            scoreMenu.Configure( this );
-//        }
-
-//        private void Start()
-//        {
-//            scoreMenu.Hide();
-//        }
-
-//        public void ScoreMenu()
-//        {
-//            scoreMenu.Show( matchController );
-//            mainMenu.SetActive( false );
-//        }
-
-//        public void MainMenu()
-//        {
-//            scoreMenu.Hide();
-//            mainMenu.SetActive( true );
-//        }
-//    }
-//}
-
