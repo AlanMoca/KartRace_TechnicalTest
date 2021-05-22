@@ -22,11 +22,6 @@ namespace KartRace.Views.MainMenu
             shopMenuAnimations = new Animations.ShopMenuAnimations( carTransform, desiredCarPosition );
         }
 
-        private void Awake()
-        {
-            shopMenu = this.gameObject;
-        }
-
         public void Show()
         {
             shopMenu.SetActive( true );

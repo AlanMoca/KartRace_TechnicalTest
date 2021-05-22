@@ -6,12 +6,12 @@ namespace KartRace.Views.MainMenu
 {
     public class MainMenuMediator : MonoBehaviour
     {
-        [Header( "Class Instance" )]
+        [Header( "Class Instances" )]
         [SerializeField] private Matchs.InterfaceAdapters.Controller.MatchController matchController;
         [SerializeField] private LobbyMenu lobbyMenu;
         [SerializeField] private CustomizerMenu customizerMenu;
         [SerializeField] private ShopMenu shopMenu;
-        [SerializeField] private SettingsMenu settingsMenu;
+        [SerializeField] private SettingsMenuTabsScreensMediator settingsMenu;
         [SerializeField] private AccountMenu accountMenu;
         [SerializeField] private TransitionBetweenScenes transitionBetweenScenes;
 
@@ -29,10 +29,6 @@ namespace KartRace.Views.MainMenu
         [Header( "UI Objects References" )]
         [SerializeField] private Transform car;
 
-        [SerializeField] private ScoreMenu scoreMenu;
-        [SerializeField] private GameObject mainMenu;
-        
-
         private void Awake()
         {
             mainMenuAnimations = new Animations.MainMenuAnimations( transitionBetweenMenusImage );
@@ -40,7 +36,7 @@ namespace KartRace.Views.MainMenu
             lobbyMenu.Configure( this, car, transitionBetweenScenes );
             customizerMenu.Configure( this, car );
             shopMenu.Configure( this, car );
-            settingsMenu.Configure( this, car );
+            settingsMenu.Configure( this, car, matchController );
             accountMenu.Configure( this, car );
 
             lobbyMenuButton.onClick.AddListener( () => LobbyMenu() );
@@ -48,16 +44,12 @@ namespace KartRace.Views.MainMenu
             shopMenuButton.onClick.AddListener( () => ShopMenu() );
             settingsMenuButton.onClick.AddListener( () => SettingsMenu() );
             accountMenuButton.onClick.AddListener( () => AccountMenu() );
-
-            scoreMenu.Configure( this );
         }
 
         private void Start()
         {
             DOTween.Init();
             LobbyMenu();
-
-            scoreMenu.Hide();
         }
 
         public void LobbyMenu()
@@ -108,7 +100,7 @@ namespace KartRace.Views.MainMenu
             lobbyMenu.Hide();
             customizerMenu.Hide();
             shopMenu.Hide();
-            settingsMenu.Show( matchController );
+            settingsMenu.Show();
             accountMenu.Hide();
         }
 
@@ -124,18 +116,5 @@ namespace KartRace.Views.MainMenu
             settingsMenu.Hide();
             accountMenu.Show();
         }
-
-        public void ScoreMenu()
-        {
-            scoreMenu.Show( matchController );
-            mainMenu.SetActive( false );
-        }
-
-        public void MainMenu()
-        {
-            scoreMenu.Hide();
-            mainMenu.SetActive( true );
-        }
-
     }
 }

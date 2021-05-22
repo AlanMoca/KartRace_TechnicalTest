@@ -23,11 +23,6 @@ namespace KartRace.Views.MainMenu
             customizerMenuAnimations = new Animations.CustomizerMenuAnimations( carTransform, desiredCarPosition );
         }
 
-        private void Awake()
-        {
-            customizerMenu = this.gameObject;
-        }
-
         public void Show()
         {
             customizerMenu.SetActive( true );
