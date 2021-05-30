@@ -51,8 +51,18 @@ namespace KartRace.Views.MainMenu
             lobbyMenu.SetActive( false );
         }
 
-        public void Play()
+        private void Play()
         {
+            var cloudService = Application.ServiceLocator.Instance.GetService<CloudService.Domain.Entity.ICloudService>();
+            if( !cloudService.IsLoggedIn() )
+            {
+                mediator.AccountMenu();
+                playButton.interactable = true;
+                var messageService = Application.ServiceLocator.Instance.GetService<Views.Domain.Entity.IMessage>();
+                messageService.MessageToShow( $"You are not yet logged. Please login to start playing." );
+                return;
+            }
+
             lobbyMenuAnimations.AnimateCarPositionWhenPlayButton();
             transitionBetweenScenes.LoadScene( "Game" );
         }

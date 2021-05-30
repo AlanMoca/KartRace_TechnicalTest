@@ -46,10 +46,28 @@ namespace KartRace.Views.MainMenu
             accountMenuButton.onClick.AddListener( () => AccountMenu() );
         }
 
+        //Aunque la función awake va antes en el flujo de ejecución de Unity que la función OnEnable, se ejecutan de manera "paralela" (fijate que no tiene flecha en el diagrama de unity).
+        //Esto quiere decir que si el OnEnable está activado en un mismo script que el awake como en este, primero ejecutará el awake e inmediatamente el OnEnable posponiendo el Awake de otros
+        //scripts. Una solución es subscribir el evento en el start que sí se ejecuta hasta que todo Awake o OnEnable termine y cumple la misma función porque cada que se ejecuta OnDisable el flujo
+        //vuelve a ejecutar Awake - OnEnable -> Start, entonces realmente da lo mismo si se suscribe en OnEnable o Start.
+        //La solución que yo hice sólo para demostrar limpieza de código es permitir que los intallers y principalmente los de servicios acaben primero y luego ejecutar este MainMenuMediator, esto
+        //lo0 logré sólo cambiando el orden de ejecución de los scripts con el valor por default al agregarlo (300).
+        private void OnEnable()
+        {
+            var cloudService = Application.ServiceLocator.Instance.GetService<CloudService.Domain.Entity.ICloudService>();
+            cloudService.SubscribeOnLoginSuccessEvent( LobbyMenu );
+        }
+
         private void Start()
         {
             DOTween.Init();
             LobbyMenu();
+        }
+
+        private void OnDisable()
+        {
+            var cloudService = Application.ServiceLocator.Instance.GetService<CloudService.Domain.Entity.ICloudService>();
+            cloudService.UnsubscribeOnLoginSuccessEvent( LobbyMenu );
         }
 
         public void LobbyMenu()

@@ -7,13 +7,11 @@ namespace KartRace.SaveSystems.Domain.UseCase
 {
     public class DataSaverGenericJsonUtilize : Entity.IDataSaver
     {
-        private BinaryFormatter formatter;
         private string filePath;
         private string filePathToRead;
 
         public DataSaverGenericJsonUtilize()
         {
-            formatter = new BinaryFormatter();
             filePath = "";
         }
 
