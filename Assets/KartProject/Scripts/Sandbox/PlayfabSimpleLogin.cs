@@ -59,6 +59,16 @@ namespace KartRace.CloudService.Domain.UseCase
         {
             throw new NotImplementedException();
         }
+
+        public void SubscribeOnRegisterSuccessEvent( Action _OnRegisterSuccess )
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnsubscribeOnRegisterSuccessEvent( Action _OnRegisterSuccess )
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

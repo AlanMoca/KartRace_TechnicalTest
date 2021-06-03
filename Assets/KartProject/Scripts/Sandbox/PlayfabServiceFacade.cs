@@ -49,5 +49,15 @@ namespace KartRace.CloudService.Domain.UseCase
         {
             login.UnsubscribeOnLoginSuccessEvent( _OnLoginSuccess );
         }
+
+        public void SubscribeOnRegisterSuccessEvent( Action _OnRegisterSuccess )
+        {
+            login.SubscribeOnRegisterSuccessEvent( _OnRegisterSuccess );
+        }
+
+        public void UnsubscribeOnRegisterSuccessEvent( Action _OnRegisterSuccess )
+        {
+            login.UnsubscribeOnRegisterSuccessEvent( _OnRegisterSuccess );
+        }
     }
 }

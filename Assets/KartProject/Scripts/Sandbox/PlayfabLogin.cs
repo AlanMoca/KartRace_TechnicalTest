@@ -7,7 +7,8 @@ namespace KartRace.CloudService.Domain.UseCase
 {
     public class PlayfabLogin : Entity.ILogin
     {
-        private event Action OnLoginSuccess;
+        private event Action OnLoginSuccessEvent;
+        private event Action OnRegisterSuccessEvent;
 
         public void Register( string email, string password )
         {
@@ -42,7 +43,16 @@ namespace KartRace.CloudService.Domain.UseCase
                 Email = email,
                 Password = password
             };
-            PlayFabClientAPI.LoginWithEmailAddress( request, OnLoginSuccessful, OnError );
+            PlayFabClientAPI.LoginWithEmailAddress( request, OnLoginSuccess, OnError );
+        }
+
+        public void ResetPasswordButton( string email )
+        {
+            var request = new SendAccountRecoveryEmailRequest {
+                Email = email,
+                TitleId = "16241"                                                               //Is from the game playfab in my backend
+            };
+            PlayFabClientAPI.SendAccountRecoveryEmail( request, OnPasswordReset, OnError );
         }
 
         public void Logout()
@@ -57,17 +67,23 @@ namespace KartRace.CloudService.Domain.UseCase
             return PlayFabClientAPI.IsClientLoggedIn();
         }
 
-        private void OnRegisterSuccess( RegisterPlayFabUserResult userResult )
+        private void OnRegisterSuccess( RegisterPlayFabUserResult result )
         {
             var messageService = Application.ServiceLocator.Instance.GetService<Views.Domain.Entity.IMessage>();
             messageService.MessageToShow( $"Registered and logged in!" );
         }
 
-        private void OnLoginSuccessful( LoginResult userResult )
+        private void OnLoginSuccess( LoginResult result )
         {
-            OnLoginSuccess?.Invoke();
+            OnLoginSuccessEvent?.Invoke();
             var messageService = Application.ServiceLocator.Instance.GetService<Views.Domain.Entity.IMessage>();
             messageService.MessageToShow( $"Logged in!" );
+        }
+
+        private void OnPasswordReset( SendAccountRecoveryEmailResult result )
+        {
+            var messageService = Application.ServiceLocator.Instance.GetService<Views.Domain.Entity.IMessage>();
+            messageService.MessageToShow( $"Password reset. Mail sent!" );
         }
 
         private void OnError( PlayFabError error )
@@ -79,12 +95,22 @@ namespace KartRace.CloudService.Domain.UseCase
 
         public void SubscribeOnLoginSuccessEvent( Action _OnLoginSuccess )
         {
-            OnLoginSuccess += _OnLoginSuccess;
+            OnLoginSuccessEvent += _OnLoginSuccess;
         }
 
         public void UnsubscribeOnLoginSuccessEvent( Action _OnLoginSuccess )
         {
-            OnLoginSuccess -= _OnLoginSuccess;
+            OnLoginSuccessEvent -= _OnLoginSuccess;
+        }
+
+        public void SubscribeOnRegisterSuccessEvent( Action _OnRegisterSuccess )
+        {
+            OnRegisterSuccessEvent += _OnRegisterSuccess;
+        }
+
+        public void UnsubscribeOnRegisterSuccessEvent( Action _OnRegisterSuccess )
+        {
+            OnRegisterSuccessEvent -= _OnRegisterSuccess;
         }
     }
 }

@@ -8,5 +8,8 @@ namespace KartRace.CloudService.Domain.Entity
         bool IsLoggedIn();
         public void SubscribeOnLoginSuccessEvent( System.Action _OnLoginSuccess );
         public void UnsubscribeOnLoginSuccessEvent( System.Action _OnLoginSuccess );
+        public void SubscribeOnRegisterSuccessEvent( System.Action _OnRegisterSuccess );
+
+        public void UnsubscribeOnRegisterSuccessEvent( System.Action _OnRegisterSuccess );
     }
 }
