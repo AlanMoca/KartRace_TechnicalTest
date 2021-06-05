@@ -9,10 +9,12 @@ namespace KartRace.CloudService.Domain.UseCase
     {
         private event Action OnLoginSuccessEvent;
         private event Action OnRegisterSuccessEvent;
+        private event Action OnLogoutSuccessEvent;
 
         public void Register( string email, string password )
         {
-            
+            OnRegisterSuccessEvent?.Invoke();
+
             if( password.Length < 6 )
             {
                 var messageService = Application.ServiceLocator.Instance.GetService<Views.Domain.Entity.IMessage>();
@@ -57,6 +59,7 @@ namespace KartRace.CloudService.Domain.UseCase
 
         public void Logout()
         {
+            OnLogoutSuccessEvent?.Invoke();
             PlayFabClientAPI.ForgetAllCredentials();
             var messageService = Application.ServiceLocator.Instance.GetService<Views.Domain.Entity.IMessage>();
             messageService.MessageToShow( $"You are not logged" );
@@ -93,16 +96,6 @@ namespace KartRace.CloudService.Domain.UseCase
             Debug.Log( error.GenerateErrorReport() );
         }
 
-        public void SubscribeOnLoginSuccessEvent( Action _OnLoginSuccess )
-        {
-            OnLoginSuccessEvent += _OnLoginSuccess;
-        }
-
-        public void UnsubscribeOnLoginSuccessEvent( Action _OnLoginSuccess )
-        {
-            OnLoginSuccessEvent -= _OnLoginSuccess;
-        }
-
         public void SubscribeOnRegisterSuccessEvent( Action _OnRegisterSuccess )
         {
             OnRegisterSuccessEvent += _OnRegisterSuccess;
@@ -111,6 +104,26 @@ namespace KartRace.CloudService.Domain.UseCase
         public void UnsubscribeOnRegisterSuccessEvent( Action _OnRegisterSuccess )
         {
             OnRegisterSuccessEvent -= _OnRegisterSuccess;
+        }
+
+        public void SubscribeOnLogoutSuccessEvent( Action _OnRegisterSuccess )
+        {
+            OnLogoutSuccessEvent += _OnRegisterSuccess;
+        }
+
+        public void UnsubscribeOnLogoutSuccessEvent( Action _OnRegisterSuccess )
+        {
+            OnLogoutSuccessEvent -= _OnRegisterSuccess;
+        }
+
+        public void SubscribeOnLoginSuccessEvent( Action _OnLoginSuccess )
+        {
+            OnLoginSuccessEvent += _OnLoginSuccess;
+        }
+
+        public void UnsubscribeOnLoginSuccessEvent( Action _OnLoginSuccess )
+        {
+            OnLoginSuccessEvent -= _OnLoginSuccess;
         }
     }
 }

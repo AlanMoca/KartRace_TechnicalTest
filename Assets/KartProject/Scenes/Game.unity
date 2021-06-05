@@ -205,7 +205,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matchController: {fileID: 177660943}
-  useGenericSaveSystem: 1
+  useCloudServiceSaveSystem: 0
+  useGenericSaveSystem: 0
 --- !u!4 &29478021
 Transform:
   m_ObjectHideFlags: 0
@@ -1825,7 +1826,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815864925}
-  m_LocalRotation: {x: 0.13449773, y: -0.000000019062524, z: 0.0000000025873759, w: 0.9909139}
+  m_LocalRotation: {x: 0.13449773, y: 0.000000019062522, z: -0.0000000025873756, w: 0.9909139}
   m_LocalPosition: {x: 15, y: 3.5, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2511,11 +2512,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6691645748356329553, guid: f01351f2664b6584c8126d50a552c01f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000019062524
+      value: 0.000000019062522
       objectReference: {fileID: 0}
     - target: {fileID: 6691645748356329553, guid: f01351f2664b6584c8126d50a552c01f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000025873759
+      value: -0.0000000025873756
       objectReference: {fileID: 0}
     - target: {fileID: 6691645748356329553, guid: f01351f2664b6584c8126d50a552c01f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4110,7 +4111,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 0
       - m_Target: {fileID: 278137302}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: PlayOneShot
@@ -4118,6 +4119,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 8300000, guid: 66753e6b7787e4d71b562b3ef3acac36, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 177660941}
+        m_TargetAssemblyTypeName: KartRace.Application.GameFacade, Assembly-CSharp
+        m_MethodName: Configure
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

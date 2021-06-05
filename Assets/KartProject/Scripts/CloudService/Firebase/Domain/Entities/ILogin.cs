@@ -11,5 +11,8 @@ namespace KartRace.CloudService.Domain.Entity
         public void SubscribeOnRegisterSuccessEvent( System.Action _OnRegisterSuccess );
 
         public void UnsubscribeOnRegisterSuccessEvent( System.Action _OnRegisterSuccess );
+        public void SubscribeOnLogoutSuccessEvent( System.Action _OnRegisterSuccess );
+
+        public void UnsubscribeOnLogoutSuccessEvent( System.Action _OnRegisterSuccess );
     }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿//No funciona ya que dada la estructura que stamos usando, no se puede retornar un valor dentro de un request.
 namespace KartRace.Installers.SaveSystem.Generic
 {
     public class PlayfabGenericDataSaverInstaller : UnityEngine.MonoBehaviour

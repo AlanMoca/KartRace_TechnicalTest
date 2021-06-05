@@ -5,30 +5,56 @@ namespace KartRace.Matchs.InterfaceAdapters.Controller
 {
     public class MatchController : MonoBehaviour
     {
-        private KartRace.SaveSystems.Domain.Entity.IDataSaver genericDataSaver;
+        private SaveSystems.Domain.Entity.IDataSaver genericDataSaver;
         private IMatchDataSaver matchDataSaver;
         private MatchData matchData;
-        private bool useGenericSaveSyste;
 
-        public void Configure( KartRace.SaveSystems.Domain.Entity.IDataSaver _dataSaver, MatchData _matchData )
+        private bool useCloudSaveSystem;
+        private bool useGenericSaveSystem;
+        private bool useSpecificSaveSystem;
+
+        public void Configure( IMatchDataSaver _matchDataSaver )
+        {
+            matchDataSaver = _matchDataSaver;
+            useCloudSaveSystem = true;
+            useGenericSaveSystem = false;
+            useSpecificSaveSystem = false;
+        }
+
+        public void Configure( SaveSystems.Domain.Entity.IDataSaver _dataSaver, MatchData _matchData )
         {
             genericDataSaver = _dataSaver;
             matchData = _matchData;
-            useGenericSaveSyste = true;
+            useGenericSaveSystem = true;
+            useSpecificSaveSystem = false;
         }
 
-        public void Configure( IMatchDataSaver _matchDataSaver, MatchData _matchData )
+        public void Configure( IMatchDataSaver _matchDataSaver, MatchData _matchData, bool isUsedCloudPlatform )
         {
             matchDataSaver = _matchDataSaver;
             matchData = _matchData;
-            useGenericSaveSyste = false;
+            if( isUsedCloudPlatform )
+            {
+                useCloudSaveSystem = true;
+                useGenericSaveSystem = false;
+                useSpecificSaveSystem = false;
+                return;
+            }
+            useCloudSaveSystem = false;
+            useGenericSaveSystem = false;
+            useSpecificSaveSystem = true;
+        }
+
+        public bool GetIfUsingCloudSaveSystem()
+        {
+            return useCloudSaveSystem;
         }
 
         public void SaveMatchData()
         {
-            if( useGenericSaveSyste )
+            if( useGenericSaveSystem )
                 genericDataSaver.SaveData<MatchData>( matchData, "matchData" );
-            else
+            if( useSpecificSaveSystem )
                 matchDataSaver.SaveMatchData( matchData );
         }
 

@@ -5,9 +5,15 @@ namespace KartRace.Views.Domain.UseCase
 {
     public class MessageService : MonoBehaviour, Entity.IMessage
     {
+        [SerializeField] private GameObject canvasMessageBox;
         [SerializeField] private GameObject gameMessageBox;
         [SerializeField] private Text messageText;
         [SerializeField] private Button closeButton;
+
+        private void Awake()
+        {
+            DontDestroyOnLoad( canvasMessageBox );
+        }
 
         private void Start()
         {

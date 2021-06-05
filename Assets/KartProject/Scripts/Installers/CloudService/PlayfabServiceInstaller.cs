@@ -12,7 +12,8 @@ namespace KartRace.Installers.CloudService
         public void ICloudServiceRegisterService()
         {
             KartRace.CloudService.Domain.Entity.ILogin login = new KartRace.CloudService.Domain.UseCase.PlayfabLogin();
-            ILeaderboard leaderboard = new PlayfabLeaderboard();
+
+            KartRace.CloudService.Domain.Entity.ILeaderboard leaderboard = new KartRace.CloudService.Domain.UseCase.PlayfabLeaderboard();
 
             var matchDataSaverBinaryFile = new KartRace.CloudService.Domain.UseCase.PlayfabServiceFacade( login, leaderboard );
             Application.ServiceLocator.Instance.RegisterService<KartRace.CloudService.Domain.Entity.ICloudService>( matchDataSaverBinaryFile );

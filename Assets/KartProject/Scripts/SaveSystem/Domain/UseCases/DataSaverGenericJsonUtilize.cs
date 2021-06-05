@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using KartRace.Application;
+using PlayFab.ClientModels;
 
 namespace KartRace.SaveSystems.Domain.UseCase
 {
@@ -85,5 +86,9 @@ namespace KartRace.SaveSystems.Domain.UseCase
             return objectDataTemp;
         }
 
+        public T LoadData<T>( string fileName, Action<GetUserDataResult> result ) where T : class
+        {
+            throw new NotImplementedException();
+        }
     }
 }

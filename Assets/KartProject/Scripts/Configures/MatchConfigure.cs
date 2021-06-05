@@ -10,28 +10,50 @@ namespace KartRace.Configures
         [SerializeField] private MatchController matchController;
 
         [Header( "Save System" )]
+        [Tooltip( "Use a CloudService to Save System. This option have mayor priroty than others kinds of save systems." )]
+        [SerializeField] private bool useCloudServiceSaveSystem;
         [Tooltip( "Use a Generic Save System for Binary Files or the one that was configured in the installers. This option must also be activated in the others scenes." )]
         [SerializeField] private bool useGenericSaveSystem;
+        [Tooltip( "Use a Specific Save System for every data file wiht Binary Files or the one that was configured in the installers. This option must also be activated in the others scenes." )]
+        [SerializeField] private bool useASpecifcSaveSystem;
 
         //When it is configuration, the star is used so that it gives time to the installers to create the instances
         private void Start()
         {
+            if( useCloudServiceSaveSystem )
+            {
+                var cloudService = Application.ServiceLocator.Instance.GetService<CloudService.Domain.Entity.ICloudService>();
+                var matchDataSaver = GetMatchDataSaverTypeService();
+
+                if( !cloudService.IsLoggedIn() )
+                {
+                    matchController.Configure( matchDataSaver );
+                    return;
+                }
+
+                var matchData = GetMatchDataFromInstallersSaveSystem( matchDataSaver );
+                matchController.Configure( matchDataSaver, matchData, true );
+
+                return;
+            }
             if( useGenericSaveSystem )
             {
                 var genericDataSaver = GetGenericDataSaverTypeService();
                 var matchData = GetMatchDataFromGenericSaveSystem( genericDataSaver );
-                //var playerData = GetPlayerDataFromGenericSaveSystem( genericDataSaver );      //Create method
 
                 matchController.Configure( genericDataSaver, matchData );
+
+                return;
             }
-            else
+            if( useASpecifcSaveSystem )
             {
                 var matchDataSaver = GetMatchDataSaverTypeService();
                 var matchData = GetMatchDataFromInstallersSaveSystem( matchDataSaver );
 
-                matchController.Configure( matchDataSaver, matchData );
-            }
+                matchController.Configure( matchDataSaver, matchData, false );
 
+                return;
+            }
         }
 
         private SaveSystems.Domain.Entity.IDataSaver GetGenericDataSaverTypeService()

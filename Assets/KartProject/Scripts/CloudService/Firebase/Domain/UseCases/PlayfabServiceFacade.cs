@@ -1,15 +1,13 @@
-using KartRace.Views.MainMenu;
 using System;
-using UnityEngine;
 
 namespace KartRace.CloudService.Domain.UseCase
 {
     public class PlayfabServiceFacade : Entity.ICloudService
     {
         private Entity.ILogin login;
-        private ILeaderboard leaderboard;
+        private Entity.ILeaderboard leaderboard;
 
-        public PlayfabServiceFacade( Entity.ILogin _login, ILeaderboard _leaderboard)
+        public PlayfabServiceFacade( Entity.ILogin _login, Entity.ILeaderboard _leaderboard )
         {
             login = _login;
             leaderboard = _leaderboard;
@@ -58,6 +56,16 @@ namespace KartRace.CloudService.Domain.UseCase
         public void UnsubscribeOnRegisterSuccessEvent( Action _OnRegisterSuccess )
         {
             login.UnsubscribeOnRegisterSuccessEvent( _OnRegisterSuccess );
+        }
+
+        public void SubscribeOnLogoutSuccessEvent( Action _OnRegisterSuccess )
+        {
+            login.SubscribeOnLogoutSuccessEvent( _OnRegisterSuccess );
+        }
+
+        public void UnsubscribeOnLogoutSuccessEvent( Action _OnRegisterSuccess )
+        {
+            login.UnsubscribeOnLogoutSuccessEvent( _OnRegisterSuccess );
         }
     }
 }

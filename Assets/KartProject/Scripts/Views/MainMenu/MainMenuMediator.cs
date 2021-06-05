@@ -32,18 +32,8 @@ namespace KartRace.Views.MainMenu
         private void Awake()
         {
             mainMenuAnimations = new Animations.MainMenuAnimations( transitionBetweenMenusImage );
-
-            lobbyMenu.Configure( this, car, transitionBetweenScenes );
-            customizerMenu.Configure( this, car );
-            shopMenu.Configure( this, car );
-            settingsMenu.Configure( this, car, matchController );
-            accountMenu.Configure( this, car );
-
-            lobbyMenuButton.onClick.AddListener( () => LobbyMenu() );
-            customizerMenuButton.onClick.AddListener( () => CustomizerMenu() );
-            shopMenuButton.onClick.AddListener( () => ShopMenu() );
-            settingsMenuButton.onClick.AddListener( () => SettingsMenu() );
-            accountMenuButton.onClick.AddListener( () => AccountMenu() );
+            MenusConfiguration();
+            AddListenersToPanelbuttons();
         }
 
         //Aunque la función awake va antes en el flujo de ejecución de Unity que la función OnEnable, se ejecutan de manera "paralela" (fijate que no tiene flecha en el diagrama de unity).
@@ -54,22 +44,19 @@ namespace KartRace.Views.MainMenu
         //se hizo sólo cambiando el orden de ejecución de los scripts con el valor por default al agregarlo (300).
         private void OnEnable()
         {
-            var cloudService = Application.ServiceLocator.Instance.GetService<CloudService.Domain.Entity.ICloudService>();
-            cloudService.SubscribeOnLoginSuccessEvent( LobbyMenu );
-            cloudService.SubscribeOnRegisterSuccessEvent( LobbyMenu );
+            SuscribeEvents();
         }
 
         private void Start()
         {
             DOTween.Init();
             LobbyMenu();
+            PlayerLoggedInVerification();
         }
 
         private void OnDisable()
         {
-            var cloudService = Application.ServiceLocator.Instance.GetService<CloudService.Domain.Entity.ICloudService>();
-            cloudService.UnsubscribeOnLoginSuccessEvent( LobbyMenu );
-            cloudService.UnsubscribeOnRegisterSuccessEvent( LobbyMenu );
+            UnsuscribeEvents();
         }
 
         public void LobbyMenu()
@@ -135,6 +122,98 @@ namespace KartRace.Views.MainMenu
             shopMenu.Hide();
             settingsMenu.Hide();
             accountMenu.Show();
+        }
+
+        private void MenusConfiguration()
+        {
+            lobbyMenu.Configure( this, car, transitionBetweenScenes );
+            customizerMenu.Configure( this, car );
+            shopMenu.Configure( this, car );
+            settingsMenu.Configure( this, car, matchController );
+            accountMenu.Configure( this, car );
+        }
+
+        private void RemoveAllListenersFromPanelbuttons()
+        {
+            lobbyMenuButton.onClick.RemoveAllListeners();
+            customizerMenuButton.onClick.RemoveAllListeners();
+            shopMenuButton.onClick.RemoveAllListeners();
+            settingsMenuButton.onClick.RemoveAllListeners();
+            accountMenuButton.onClick.RemoveAllListeners();
+        }
+
+        private void AddListenersToPanelbuttons()
+        {
+            lobbyMenuButton.onClick.AddListener( () => LobbyMenu() );
+            customizerMenuButton.onClick.AddListener( () => CustomizerMenu() );
+            shopMenuButton.onClick.AddListener( () => ShopMenu() );
+            settingsMenuButton.onClick.AddListener( () => SettingsMenu() );
+            accountMenuButton.onClick.AddListener( () => AccountMenu() );
+        }
+
+        private void SuscribeEvents()
+        {
+            var cloudService = Application.ServiceLocator.Instance.GetService<CloudService.Domain.Entity.ICloudService>();
+
+            cloudService.SubscribeOnLoginSuccessEvent( LobbyMenu );
+            cloudService.SubscribeOnLoginSuccessEvent( IsLoggedIn );
+
+            cloudService.SubscribeOnRegisterSuccessEvent( LobbyMenu );
+            cloudService.SubscribeOnLogoutSuccessEvent( PlayerLoggedOut );
+        }
+
+        private void UnsuscribeEvents()
+        {
+            var cloudService = Application.ServiceLocator.Instance.GetService<CloudService.Domain.Entity.ICloudService>();
+
+            cloudService.UnsubscribeOnLoginSuccessEvent( LobbyMenu );
+            cloudService.UnsubscribeOnLoginSuccessEvent( IsLoggedIn );
+
+            cloudService.UnsubscribeOnRegisterSuccessEvent( LobbyMenu );
+            cloudService.UnsubscribeOnLogoutSuccessEvent( PlayerLoggedOut );
+        }
+
+        private void IsLoggedIn()
+        {
+            RemoveAllListenersFromPanelbuttons();
+            AddListenersToPanelbuttons();
+        }
+
+        private void PlayerLoggedOut()
+        {
+            RemoveSomeListenersFromPanelbuttonsWhenThePlayerIsNotLogged();
+            AddSomeListenersFromPanelbuttonsWhenThePlayerIsNotLogged();
+        }
+
+        private void PlayerLoggedInVerification()
+        {
+            var cloudService = Application.ServiceLocator.Instance.GetService<CloudService.Domain.Entity.ICloudService>();
+            if( cloudService.IsLoggedIn() )
+            {
+                return;
+            }
+            RemoveSomeListenersFromPanelbuttonsWhenThePlayerIsNotLogged();
+            AddSomeListenersFromPanelbuttonsWhenThePlayerIsNotLogged();
+        }
+
+        private void RemoveSomeListenersFromPanelbuttonsWhenThePlayerIsNotLogged()
+        {
+            customizerMenuButton.onClick.RemoveAllListeners();
+            shopMenuButton.onClick.RemoveAllListeners();
+            settingsMenuButton.onClick.RemoveAllListeners();
+        }
+
+        private void AddSomeListenersFromPanelbuttonsWhenThePlayerIsNotLogged()
+        {
+            customizerMenuButton.onClick.AddListener( () => NotLoggedInYetMessage() );
+            shopMenuButton.onClick.AddListener( () => NotLoggedInYetMessage() );
+            settingsMenuButton.onClick.AddListener( () => NotLoggedInYetMessage() );
+        }
+
+        private void NotLoggedInYetMessage()
+        {
+            var messageService = Application.ServiceLocator.Instance.GetService<Domain.Entity.IMessage>();
+            messageService.MessageToShow( $"You are not logged.\n You need to log in to hace access to this option." );
         }
     }
 }

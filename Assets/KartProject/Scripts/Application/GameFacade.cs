@@ -19,6 +19,15 @@ namespace KartRace.Application
         [SerializeField] private Cars.InterfaceAdapters.Controller.CarController carController;
         [SerializeField] private KartRace.Views.GameMenu.GameMenuMediator gameMenuMediator;
 
+        public void Configure()
+        {
+            SaveSystems.Domain.Entity.IDataSaver dataSaver = ServiceLocator.Instance.GetService<SaveSystems.Domain.Entity.IDataSaver>();
+            var matchData = dataSaver.LoadData<Matchs.Domain.Entity.MatchData>( "matchData" );
+
+            matchController.Configure( dataSaver, matchData );
+            StartGame();
+        }
+
         public void StartGame()
         {
             carController.enabled = false;

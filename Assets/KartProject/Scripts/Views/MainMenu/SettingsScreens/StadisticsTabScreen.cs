@@ -23,6 +23,14 @@ namespace KartRace.Views.MainMenu
         {
             stadisticsTabScreen.SetActive( true );
 
+            if( matchController.GetIfUsingCloudSaveSystem() )
+            {
+                Matchs.Domain.Entity.IMatchDataSaver matchDataSaver = Application.ServiceLocator.Instance.GetService<Matchs.Domain.Entity.IMatchDataSaver>();
+                var matchData = matchDataSaver.LoadMatchData();
+
+                matchController.Configure( matchDataSaver, matchData, true );
+            }
+
             var bestTime = matchController.GetBestTime();
             var racesWon = matchController.GetRacesWon();
             var numberOfRaces = matchController.GetNumberOfRaces();

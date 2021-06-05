@@ -3,7 +3,7 @@ using UnityEngine;
 namespace KartRace.Installers.SaveSystem.Selection
 {
     [RequireComponent( typeof( UnityJsonUtilizeInstaller ) )]
-    public class DataSaverUnityJsonUtilizeInstaller : MonoBehaviour, IDataSaverInstaller
+    public class DataSaverPlayfabInstaller : MonoBehaviour, IDataSaverInstaller
     {
         private void Awake()
         {
@@ -12,7 +12,7 @@ namespace KartRace.Installers.SaveSystem.Selection
 
         public void MatchDataSaverRegisterService()
         {
-            var matchDataSaverPlayerPrefs = new Matchs.Domain.UseCase.MatchDataSaverJSON();
+            var matchDataSaverPlayerPrefs = new Matchs.Domain.UseCase.MatchDataSaverPlayfab();
             Application.ServiceLocator.Instance.RegisterService<Matchs.Domain.Entity.IMatchDataSaver>( matchDataSaverPlayerPrefs );
         }
 
@@ -22,3 +22,4 @@ namespace KartRace.Installers.SaveSystem.Selection
         }
     }
 }
+
